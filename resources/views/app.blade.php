@@ -15,6 +15,21 @@
 
   <!-- Styles -->
   @vite('resources/css/app.css')
+  <style>
+    body {
+      background-color: #333333;
+      color: #FFFFFF;
+      width: 60vw;
+      height: 80vh;
+      text-align: center;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    div {
+      background-color: black;
+    }
+  </style>
 </head>
 
 <body>
