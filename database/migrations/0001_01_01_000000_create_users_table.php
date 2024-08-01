@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('password');
+            $table->integer('tmp_floor');
+            $table->integer('record_floor');
             $table->rememberToken();
             $table->timestamps();
         });
