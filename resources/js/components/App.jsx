@@ -1,12 +1,15 @@
 import ReactDOM from "react-dom";
 import React from "react";
+import styled from 'styled-components';
 
-function App() {
-  return <h1>Hello World React</h1>;
-}
+const App = styled.h1`
+color: red;
+`
 
 export default App;
 
 if (document.getElementById("app")) {
-  ReactDOM.render(<App />, document.getElementById("app"));
+  ReactDOM.render(
+    <App>Hello World React</App>,
+    document.getElementById("app"));
 }
