@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('type');
+            $table->integer('attack');
+            $table->integer('defence');
+            $table->integer('speed');
+            $table->integer('intelligence');
             $table->timestamps();
         });
     }
