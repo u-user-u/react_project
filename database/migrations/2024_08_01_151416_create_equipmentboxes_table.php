@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('equipmentboxes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('equipment_id')->constrained('equipments')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('equipment_id')->constrained('equipment')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
