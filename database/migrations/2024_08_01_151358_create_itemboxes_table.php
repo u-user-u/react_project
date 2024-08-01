@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('enemies', function (Blueprint $table) {
+        Schema::create('itemboxes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('item_id')->constrained('items')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('amount');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('enemies');
+        Schema::dropIfExists('itemboxes');
     }
 };
