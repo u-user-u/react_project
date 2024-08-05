@@ -21,11 +21,9 @@ const StyledCommand = styled.div`
 export const Command = () => {
   return (
     <StyledCommand>
-      探索<br></br>
+      攻撃<br></br>
       アイテム<br></br>
-      装備<br></br>
-      つよさ<br></br>
-      セーブして終わる<br></br>
+      スキル<br></br>
     </StyledCommand>
   )
 }
