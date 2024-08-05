@@ -26,6 +26,9 @@ const StyledPlayer = styled.div`
 const USER_PARAMETER = document.getElementById('user').value;
 const USER_ROOT = JSON.parse(USER_PARAMETER);
 
+const ABILITY = document.getElementById('ability').value;
+const ABILITY_ROOT = JSON.parse(ABILITY);
+
 const Floor = () => {
   return (
     <StyledFloor>第{USER_ROOT.tmp_floor}層</StyledFloor>
@@ -36,9 +39,9 @@ const Player = () => {
   return (
     <StyledPlayer>
       {USER_ROOT.name}<br></br>
-      Lv. 1<br></br>
-      HP : 100/100<br></br>
-      MP : 50/50<br></br>
+      Lv. {ABILITY_ROOT.level}<br></br>
+      HP : {ABILITY_ROOT.tmp_HP}/{ABILITY_ROOT.max_HP}<br></br>
+      MP : {ABILITY_ROOT.tmp_MP}/{ABILITY_ROOT.max_MP}<br></br>
     </StyledPlayer>
   )
 }

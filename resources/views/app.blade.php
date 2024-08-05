@@ -34,6 +34,7 @@
 
 <body>
   <input type="hidden" id="user" value="{{ $user }}"></input>
+  <input type="hidden" id="ability" value="{{ $ability }}"></input>
   <div id="app"></div>
 </body>
 
