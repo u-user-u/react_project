@@ -18,7 +18,9 @@ const StyledMessage = styled.div`
 export const Message = () => {
   return (
     <StyledMessage>
-      スライムがあらわれた！
+      <div id="message">
+        スライムがあらわれた！
+      </div>
     </StyledMessage>
   )
 }

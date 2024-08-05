@@ -27,6 +27,6 @@ if (document.getElementById("app")) {
         <Command />
         <Message />
       </div>
-    </App>,
+    </App >,
     document.getElementById("app"));
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import { Button } from '../button';
 
 const StyledCommand = styled.div`
   display: inline-block;
@@ -8,7 +9,7 @@ const StyledCommand = styled.div`
   text-align: left;
   vertical-align: top;
   margin: 0px 0px 20px 0px;
-  padding: 10px 0px 10px 30px;
+  padding: 10px 0px 10px 10px;
   border: 3px solid;
   border-color: white;
   border-radius: 6px;
@@ -21,9 +22,11 @@ const StyledCommand = styled.div`
 export const Command = () => {
   return (
     <StyledCommand>
-      攻撃<br></br>
-      アイテム<br></br>
-      スキル<br></br>
+      <div id="command">
+        <Button action="attack"></Button><br></br>
+        <Button action="item"></Button><br></br>
+        <Button action="skill"></Button><br></br>
+      </div>
     </StyledCommand>
   )
 }
