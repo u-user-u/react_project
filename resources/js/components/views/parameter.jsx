@@ -22,16 +22,20 @@ const StyledPlayer = styled.div`
   margin-right: auto;
 `
 
+// user情報取得
+const USER_PARAMETER = document.getElementById('user').value;
+const USER_ROOT = JSON.parse(USER_PARAMETER);
+
 const Floor = () => {
   return (
-    <StyledFloor>第1層</StyledFloor>
+    <StyledFloor>第{USER_ROOT.tmp_floor}層</StyledFloor>
   )
 }
 
 const Player = () => {
   return (
     <StyledPlayer>
-      テスト<br></br>
+      {USER_ROOT.name}<br></br>
       Lv. 1<br></br>
       HP : 100/100<br></br>
       MP : 50/50<br></br>
