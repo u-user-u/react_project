@@ -33,6 +33,7 @@
 </head>
 
 <body>
+  <input type="hidden" id="user" value="{{ $user }}"></input>
   <div id="app"></div>
 </body>
 
