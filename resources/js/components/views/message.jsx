@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import { commandState } from '../App';
 
 const StyledMessage = styled.div`
   display: inline-block;
@@ -15,12 +16,39 @@ const StyledMessage = styled.div`
   border-radius: 6px;
 `
 
-export const Message = () => {
-  return (
-    <StyledMessage>
-      <div id="message">
-        スライムがあらわれた！
-      </div>
-    </StyledMessage>
-  )
+export const Message = ({ state }) => {
+  // 戦闘初期表示
+  if (state == commandState.initial) {
+    return (
+      <StyledMessage>
+        <div id="message">スライムがあらわれた!</div>
+      </StyledMessage>
+    )
+  }
+  // 戦闘バトル表示
+  else if (state == commandState.battle) {
+    return (
+      <StyledMessage>
+        <div id="message">
+          $testの攻撃!
+        </div>
+      </StyledMessage>
+    )
+  }
+  // 戦闘アイテム表示
+  else if (state == commandState.item) {
+    return (
+      <StyledMessage>
+        <div id="message">HPが20回復する</div>
+      </StyledMessage>
+    )
+  }
+  // 戦闘スキル表示
+  else if (state == commandState.skill) {
+    return (
+      <StyledMessage>
+        <div id="message">炎の魔法で敵を焼き尽くす</div>
+      </StyledMessage>
+    )
+  }
 }

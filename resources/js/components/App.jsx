@@ -5,7 +5,14 @@ import { Message } from './views/message';
 import { Command } from './views/command';
 import { Parameter } from './views/parameter';
 import { Enemy } from './views/enemy';
+import { useState } from 'react';
 
+export const commandState = {
+  initial: "INITIAL",
+  battle: "BATTLE",
+  item: "ITEM",
+  skill: "SKILL"
+}
 
 const StyledApp = styled.div`
 background-color: black;
@@ -13,10 +20,10 @@ display: block;
 `
 
 export const App = () => {
-
+  const [state, setCommand] = useState(commandState.initial);
 
   return (
-    <>
+    <StyledApp>
       <div>
         <Parameter />
       </div>
@@ -24,10 +31,10 @@ export const App = () => {
         <Enemy />
       </div>
       <div>
-        <Command />
-        <Message />
+        <Command state={state} setCommand={setCommand} />
+        <Message state={state} />
       </div>
-    </>
+    </StyledApp>
   )
 }
 
