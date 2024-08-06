@@ -35,7 +35,6 @@
 <body>
   <input type="hidden" id="user" value="{{ $user }}"></input>
   <input type="hidden" id="ability" value="{{ $ability }}"></input>
-  <input type="hidden" id="item" value="{{ $item }}"></input>
   <div id="app"></div>
 </body>
 

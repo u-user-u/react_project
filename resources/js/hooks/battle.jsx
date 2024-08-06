@@ -25,9 +25,6 @@ async function battle() {
 
     await sleep(1000);
 
-    // 勝敗の判定をする
-    winLose = judgeWinLose();
-
     // 敗北した場合
     if (winLose === "lose" || winLose === "win") {
       return false;

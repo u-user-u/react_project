@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import { actionState } from "../App";
 
 const commandState = {
   initial: 'INITIAL',
@@ -37,25 +38,14 @@ const StyledA = styled.a`
   }
 `
 
-let items = JSON.parse(document.getElementById('item').value);
-console.log(items);
-
-const useItem = () => {
-  document.getElementById('message').innerHTML = "{test}は薬草を使った！<br>";
-  document.getElementById('message').innerHTML += "{test}のHPが20回復した!";
-}
-
-const onSkill = () => {
-  document.getElementById('message').innerHTML = "炎の魔法で敵を焼き尽くす";
-}
-
-export const Command = ({ state, setCommand }) => {
+export const Command = ({ state, setCommand, action, setAction }) => {
   // 戦闘初期表示（コマンド）
   if (state == commandState.initial) {
     return (
       <StyledCommand>
         <div id="command">
           <StyledA onClick={() => {
+            setAction(actionState.attack);
             setCommand(commandState.battle);
           }}>攻撃</StyledA><br></br>
           <StyledA onClick={() => {
@@ -83,8 +73,8 @@ export const Command = ({ state, setCommand }) => {
       <StyledCommand>
         <div id="command">
           <StyledA onClick={() => {
+            setAction(actionState.item);
             setCommand(commandState.battle);
-            useItem();
           }}>薬草</StyledA>
         </div>
       </StyledCommand>
@@ -95,7 +85,10 @@ export const Command = ({ state, setCommand }) => {
     return (
       <StyledCommand>
         <div id="command">
-          <StyledA>ファイア</StyledA>
+          <StyledA onClick={() => {
+            setAction(actionState.skill)
+            setCommand(commandState.battle);
+          }}>ファイア</StyledA>
         </div>
       </StyledCommand>
     )
