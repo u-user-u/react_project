@@ -7,16 +7,16 @@ import { Parameter } from './views/parameter';
 import { Enemy } from './views/enemy';
 
 
-const App = styled.div`
+const StyledApp = styled.div`
 background-color: black;
 display: block;
 `
 
-export default App;
+export const App = () => {
 
-if (document.getElementById("app")) {
-  ReactDOM.render(
-    <App>
+
+  return (
+    <>
       <div>
         <Parameter />
       </div>
@@ -27,6 +27,12 @@ if (document.getElementById("app")) {
         <Command />
         <Message />
       </div>
-    </App >,
+    </>
+  )
+}
+
+if (document.getElementById("app")) {
+  ReactDOM.render(
+    <App />,
     document.getElementById("app"));
 }
