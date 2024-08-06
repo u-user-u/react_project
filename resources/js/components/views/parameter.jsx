@@ -1,5 +1,9 @@
 import React from "react";
 import styled from 'styled-components';
+import {
+  USER_ROOT,
+  ABILITY_ROOT
+} from '../App';
 
 const StyledParameter = styled.div`
   display: inline-block;
@@ -22,13 +26,6 @@ const StyledPlayer = styled.div`
   margin-right: auto;
 `
 
-// user情報取得
-const USER_PARAMETER = document.getElementById('user').value;
-const USER_ROOT = JSON.parse(USER_PARAMETER);
-
-const ABILITY = document.getElementById('ability').value;
-const ABILITY_ROOT = JSON.parse(ABILITY);
-
 const Floor = () => {
   return (
     <StyledFloor>第{USER_ROOT.tmp_floor}層</StyledFloor>
@@ -46,7 +43,7 @@ const Player = () => {
   )
 }
 
-export const Parameter = () => {
+export const Parameter = ({ turn, setTurn }) => {
   return (
     <StyledParameter>
       <Floor />

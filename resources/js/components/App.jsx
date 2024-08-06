@@ -14,25 +14,52 @@ export const commandState = {
   skill: "SKILL"
 }
 
+export const actionState = {
+  initial: null,
+  attack: "ATTACK",
+  item: "ITEM",
+  skill: "SKILL"
+}
+
+export const turnState = {
+  wait: "WAIT",
+  player: "PLAYER",
+  enemy: "ENEMY"
+}
+
 const StyledApp = styled.div`
 background-color: black;
 display: block;
 `
 
+// user情報取得
+const USER_PARAMETER = document.getElementById('user').value;
+export const USER_ROOT = JSON.parse(USER_PARAMETER);
+// ability情報取得
+const ABILITY = document.getElementById('ability').value;
+export const ABILITY_ROOT = JSON.parse(ABILITY);
+
 export const App = () => {
+  // コマンドステート
   const [state, setCommand] = useState(commandState.initial);
+  // アクションステート
+  const [action, setAction] = useState(actionState.initial);
+  // 順番ステート
+  const [turn, setTurn] = useState(turnState.wait);
+  // テキスト用ステート
+  const [addText, setAdd] = useState(false);
 
   return (
     <StyledApp>
       <div>
-        <Parameter />
+        <Parameter turn={turn} setTurn={setTurn} />
       </div>
       <div>
         <Enemy />
       </div>
       <div>
-        <Command state={state} setCommand={setCommand} />
-        <Message state={state} />
+        <Command state={state} setCommand={setCommand} action={action} setAction={setAction} />
+        <Message state={state} action={action} turn={turn} addText={addText} setAdd={setAdd} />
       </div>
     </StyledApp>
   )

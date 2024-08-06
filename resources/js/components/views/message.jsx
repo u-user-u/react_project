@@ -1,6 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
-import { commandState } from '../App';
+import { commandState, actionState } from '../App';
+import { USER_ROOT } from "../App";
 
 const StyledMessage = styled.div`
   display: inline-block;
@@ -16,7 +17,7 @@ const StyledMessage = styled.div`
   border-radius: 6px;
 `
 
-export const Message = ({ state }) => {
+export const Message = ({ state, action, turn }) => {
   // 戦闘初期表示
   if (state == commandState.initial) {
     return (
@@ -27,13 +28,39 @@ export const Message = ({ state }) => {
   }
   // 戦闘バトル表示
   else if (state == commandState.battle) {
-    return (
-      <StyledMessage>
-        <div id="message">
-          $testの攻撃!
-        </div>
-      </StyledMessage>
-    )
+    // 攻撃アクション
+    if (action == actionState.attack) {
+      return (
+        <StyledMessage>
+          <div id="message">
+            {USER_ROOT.name}の攻撃!<br></br>
+            slimeに50のダメージ!
+          </div>
+        </StyledMessage>
+      )
+    }
+    // アイテムアクション
+    else if (action == actionState.item) {
+      return (
+        <StyledMessage>
+          <div id="message">
+            {USER_ROOT.name}は薬草を使った!<br></br>
+            HPが20回復した!
+          </div>
+        </StyledMessage>
+      )
+    }
+    // スキルアクション
+    else if (action == actionState.skill) {
+      return (
+        <StyledMessage>
+          <div id="message">
+            {USER_ROOT.name}はファイアを放った!<br></br>
+            slimeに80のダメージ!
+          </div>
+        </StyledMessage>
+      )
+    }
   }
   // 戦闘アイテム表示
   else if (state == commandState.item) {

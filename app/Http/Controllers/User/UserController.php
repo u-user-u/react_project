@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Http\Controllers\User\AbilityController;
 use App\Models\Ability;
 use App\Models\Itembox;
+use App\Models\Item;
 
 class UserController extends Controller
 {
@@ -15,12 +16,12 @@ class UserController extends Controller
     {
         $user = User::query()->where('id', 1)->first();
         $ability = $this->fetchAbility();
-        $item = $this->fetchItem();
+        $items = $this->fetchItem();
 
         return view('app')
             ->with('user', $user)
             ->with('ability', $ability)
-            ->with('item', $item);
+            ->with('items', $items);
     }
 
     public function fetchAbility()
@@ -32,8 +33,13 @@ class UserController extends Controller
 
     public function fetchItem()
     {
-        $item = Itembox::where('user_id', 1)->get();
+        $items = [];
+        $itembox = Itembox::where('user_id', 1)->get();
+        foreach ($itembox as $i) {
+            $item = Item::where('id', $i->id);
+            $items[] = $item;
+        }
 
-        return $item;
+        return $items;
     }
 }
