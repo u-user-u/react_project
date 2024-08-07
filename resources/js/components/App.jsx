@@ -25,8 +25,19 @@ export const actionState = {
 
 export const turnState = {
   wait: "WAIT",
-  player: "PLAYER",
-  enemy: "ENEMY",
+  prev: "PREV",
+  next: "NEXT",
+}
+
+export const resultState = {
+  none: "NONE",
+  win: "WIN",
+  lose: "LOSE",
+  getEXP: "GETEXP",
+  levelUp: "LEVELUP",
+  getSkill: "GETSKILL",
+  getItem: "GETITEM",
+  getEquipment: "GETEQUIPMENT"
 }
 
 const StyledApp = styled.div`
@@ -44,8 +55,8 @@ const App = () => {
   const [action, setAction] = useState(actionState.initial);
   // 順番ステート
   const [turn, setTurn] = useState(turnState.wait);
-  // テキスト用ステート
-  const [addText, setAdd] = useState(false);
+  // リザルトステート
+  const [result, setResult] = useState(resultState.none);
 
   return (
     <StyledApp>
@@ -57,7 +68,7 @@ const App = () => {
       </div>
       <div>
         <Command state={state} setCommand={setCommand} action={action} setAction={setAction} setTurn={setTurn} />
-        <Message state={state} setCommand={setCommand} action={action} turn={turn} setTurn={setTurn} />
+        <Message state={state} setCommand={setCommand} action={action} turn={turn} setTurn={setTurn} result={result} setResult={setResult} />
       </div>
     </StyledApp>
   )
