@@ -9,6 +9,7 @@ import { useState } from 'react';
 
 export const commandState = {
   initial: "INITIAL",
+  wait: 'WAIT',
   battle: "BATTLE",
   item: "ITEM",
   skill: "SKILL"
@@ -58,8 +59,8 @@ export const App = () => {
         <Enemy />
       </div>
       <div>
-        <Command state={state} setCommand={setCommand} action={action} setAction={setAction} />
-        <Message state={state} action={action} turn={turn} addText={addText} setAdd={setAdd} />
+        <Command state={state} setCommand={setCommand} action={action} setAction={setAction} setTurn={setTurn} />
+        <Message state={state} setCommand={setCommand} action={action} turn={turn} setTurn={setTurn} />
       </div>
     </StyledApp>
   )
