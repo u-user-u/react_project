@@ -28,13 +28,5 @@ class UserController extends Controller
 
     public function fetchItem()
     {
-        $items = [];
-        $itembox = Itembox::where('user_id', 1)->get();
-        foreach ($itembox as $i) {
-            $item = Item::where('id', $i->id);
-            $items[] = $item;
-        }
-
-        return $items;
     }
 }

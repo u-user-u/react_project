@@ -2,13 +2,13 @@
 // プレイヤークラス
 // ==================================
 export class Player {
-  constructor(name, level, state, tmpHP, maxHP, tmpMP, maxMP, attack, defence, speed, intelligence, totalEXP, tmp_floor, record_floor) {
+  constructor(name, level, state, HP, maxHP, MP, maxMP, attack, defence, speed, intelligence, totalEXP, tmp_floor, record_floor) {
     this.name = name;
     this.level = level;
     this.state = state;
-    this.tmpHP = tmpHP;
+    this.HP = HP;
     this.maxHP = maxHP;
-    this.tmpMP = tmpMP;
+    this.MP = MP;
     this.maxMP = maxMP;
     this.attack = attack;
     this.defence = defence;
@@ -35,10 +35,5 @@ export class Enemy {
     this.speed = speed;
     this.intelligence = intelligence;
     this.EXP = EXP;
-  }
-
-  // 表示用パラメーターを返す
-  getParameter() {
-    return { name: this.name, level: this.level, tmpHP: this.tmpHP, maxHP: this.maxHP, tmpMP: this.tmpMP, maxMP: this.maxMP }
   }
 }
