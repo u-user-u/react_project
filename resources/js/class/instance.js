@@ -3,17 +3,13 @@ import { Player, Enemy } from './class';
 // ===================================================
 // データベース連携
 // ===================================================
-// user情報取得->文字列置換->文字列からオブジェクトへ変換
-// userは変数とする
+// ユーザー情報取得->文字列置換->文字列からオブジェクトへ変換
+// uは変数とする
 export let u = JSON.parse(user.replace(/&quot;/g, '"'));
-console.log(u);
 // abilityも同様
 export let a = JSON.parse(ability.replace(/&quot;/g, '"'));
-console.log(a);
 export let e = JSON.parse(enemies.replace(/&quot;/g, '"'));
-console.log(e);
 export let ea = JSON.parse(enemyAbility.replace(/&quot;/g, '"'));
-console.log(ea);
 
 // ===================================================
 // インスタンス化

@@ -40,7 +40,7 @@ export const Command = ({ state, setCommand, action, setAction, setTurn }) => {
           <StyledA onClick={() => {
             setAction(actionState.attack);
             setCommand(commandState.battle);
-            setTurn(turnState.player);
+            setTurn(turnState.prev);
           }}>攻撃</StyledA><br></br>
           <StyledA onClick={() => {
             setCommand(commandState.item);
@@ -69,7 +69,7 @@ export const Command = ({ state, setCommand, action, setAction, setTurn }) => {
           <StyledA onClick={() => {
             setAction(actionState.item);
             setCommand(commandState.battle);
-            setTurn(turnState.player);
+            setTurn(turnState.prev);
           }}>薬草</StyledA>
         </div>
       </StyledCommand>
@@ -83,7 +83,7 @@ export const Command = ({ state, setCommand, action, setAction, setTurn }) => {
           <StyledA onClick={() => {
             setAction(actionState.skill);
             setCommand(commandState.battle);
-            setTurn(turnState.player);
+            setTurn(turnState.prev);
           }}>ファイア</StyledA>
         </div>
       </StyledCommand>

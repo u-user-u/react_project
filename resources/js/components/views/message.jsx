@@ -22,7 +22,7 @@ const StyledM = styled.a`
   text-decoration: none;
   color: white;
   &::after {
-    content: "　　▼";
+    content: " ▼";
     opacity: 100;
   }
   &:hover::after {
@@ -30,7 +30,7 @@ const StyledM = styled.a`
   }
 `
 
-export const Message = ({ state, setCommand, action, turn, setTurn }) => {
+export const Message = ({ state, setCommand, action, turn, setTurn, result, setResult }) => {
   // 戦闘初期表示
   if (state == commandState.initial) {
     return (
@@ -49,56 +49,29 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
   }
   // 戦闘バトル表示
   else if (state == commandState.battle) {
+    let character = lib.sortCharacter(player, enemy);
     // 味方ターン
-    if (turn == turnState.player) {
-      // 攻撃アクション
-      if (action == actionState.attack) {
-        return (
-          <StyledMessage>
-            <StyledM onClick={() => {
-              setTurn(turnState.enemy);
-            }} id="message">
-              {lib.countDamage(player, enemy)}
-            </StyledM>
-          </StyledMessage >
-        )
-      }
-      // アイテムアクション
-      else if (action == actionState.item) {
-        return (
-          <StyledMessage>
-            <StyledM onClick={() => {
-              setTurn(turnState.enemy);
-            }} id="message">
-              {player.name}は薬草を使った!<br></br>
-              HPが20回復した!
-            </StyledM>
-          </StyledMessage>
-        )
-      }
-      // スキルアクション
-      else if (action == actionState.skill) {
-        return (
-          <StyledMessage>
-            <StyledM onClick={() => {
-              setTurn(turnState.enemy);
-            }} id="message">
-              {player.name}はファイアを放った!<br></br>
-              {enemy.name}に80のダメージ!
-            </StyledM>
-          </StyledMessage>
-        )
-      }
+    if (turn == turnState.prev) {
+      // 先手の行動
+      return (
+        <StyledMessage>
+          <StyledM onClick={() => {
+            setTurn(turnState.next);
+          }} id="message">
+            {character[0].action(action, character[1])}
+          </StyledM>
+        </StyledMessage >
+      )
     }
-    // 敵ターン
-    else if (turn == turnState.enemy) {
+    // 後手の行動
+    else if (turn == turnState.next) {
       return (
         <StyledMessage>
           <StyledM onClick={() => {
             setCommand(commandState.wait);
             setTurn(turnState.wait);
           }} id="message">
-            {lib.countDamage(enemy, player)}
+            {character[1].action(action, character[0])}
           </StyledM>
         </StyledMessage >
       )
