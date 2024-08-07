@@ -33,9 +33,14 @@
 </head>
 
 <body>
-  <input type="hidden" id="user" value="{{ $user }}"></input>
-  <input type="hidden" id="ability" value="{{ $ability }}"></input>
   <div id="app"></div>
+
+  <!-- データベース連携部分ここから -->
+  <script>
+    const user = '{{$user}}';
+    const ability = '{{$ability}}';
+  </script>
+  <!-- ここまで -->
 </body>
 
 </html>

@@ -32,13 +32,17 @@ const StyledApp = styled.div`
 background-color: black;
 display: block;
 `
+// ===================================================
+// データベース連携
+// ===================================================
+// user情報取得->文字列置換->文字列からオブジェクトへ変換
+// userは変数とする
+export let USER_ROOT = JSON.parse(user.replace(/&quot;/g, '"'));
+console.log(USER_ROOT);
+// abilityも同様
+export let ABILITY_ROOT = JSON.parse(ability.replace(/&quot;/g, '"'));
+console.log(ABILITY_ROOT);
 
-// user情報取得
-const USER_PARAMETER = document.getElementById('user').value;
-export const USER_ROOT = JSON.parse(USER_PARAMETER);
-// ability情報取得
-const ABILITY = document.getElementById('ability').value;
-export const ABILITY_ROOT = JSON.parse(ABILITY);
 
 export const App = () => {
   // コマンドステート

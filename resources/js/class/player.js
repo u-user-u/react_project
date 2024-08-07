@@ -1,3 +1,6 @@
+// ==================================
+// プレイヤークラス
+// ==================================
 class Player {
   constructor(name, level, state, tmpHP, maxHP, tmpMP, maxMP, attack, defence, speed, intelligence, totalEXP) {
     this.name = name;
@@ -19,3 +22,7 @@ class Player {
     return { name: this.name, level: this.level, tmpHP: this.tmpHP, maxHP: this.maxHP, tmpMP: this.tmpMP, maxMP: this.maxMP }
   }
 }
+
+// ==================================
+// エネミークラス
+// ==================================
