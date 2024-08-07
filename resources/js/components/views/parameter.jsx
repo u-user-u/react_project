@@ -34,8 +34,8 @@ const Player = () => {
     <StyledPlayer>
       {player.name}<br></br>
       Lv. {player.level}<br></br>
-      HP : {player.tmpHP}/{player.maxHP}<br></br>
-      MP : {player.tmpMP}/{player.maxMP}<br></br>
+      HP : {player.HP}/{player.maxHP}<br></br>
+      MP : {player.MP}/{player.maxMP}<br></br>
     </StyledPlayer>
   )
 }

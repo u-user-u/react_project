@@ -2,6 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import { commandState, actionState, turnState } from '../App';
 import { player, enemy } from "../../class/instance";
+import { countDamage } from "../../lib/lib";
 
 const StyledMessage = styled.div`
   display: inline-block;
@@ -57,8 +58,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
             <StyledM onClick={() => {
               setTurn(turnState.enemy);
             }} id="message">
-              {player.name}の攻撃!<br></br>
-              {enemy.name}に50のダメージ!
+              {countDamage(player, enemy)}
             </StyledM>
           </StyledMessage >
         )
@@ -98,8 +98,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
             setCommand(commandState.wait);
             setTurn(turnState.wait);
           }} id="message">
-            {enemy.name}の攻撃!<br></br>
-            {player.name}に10のダメージ!
+            {countDamage(enemy, player)}
           </StyledM>
         </StyledMessage >
       )
