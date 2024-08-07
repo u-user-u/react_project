@@ -12,7 +12,7 @@ const StyledImage = styled.img`
   margin-top: 60px
 `
 
-export const Enemy = () => {
+export const EnemyView = () => {
   return (
     <StyledEnemy>
       <StyledImage src="../../../images/slime.png"></StyledImage>
