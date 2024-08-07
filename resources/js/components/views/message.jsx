@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import { commandState, actionState } from '../App';
+import { commandState, actionState, turnState } from '../App';
 import { USER_ROOT } from "../App";
 
 const StyledMessage = styled.div`
@@ -17,48 +17,91 @@ const StyledMessage = styled.div`
   border-radius: 6px;
 `
 
-export const Message = ({ state, action, turn }) => {
+const StyledM = styled.a`
+  text-decoration: none;
+  color: white;
+  &::after {
+    content: "　　▼";
+    opacity: 100;
+  }
+  &:hover::after {
+    opacity: 0;
+  }
+`
+
+export const Message = ({ state, setCommand, action, turn, setTurn }) => {
   // 戦闘初期表示
   if (state == commandState.initial) {
     return (
       <StyledMessage>
-        <div id="message">スライムがあらわれた!</div>
+        <a id="message">slimeがあらわれた!</a>
+      </StyledMessage>
+    )
+  }
+  // 戦闘コマンド待機表示
+  else if (state == commandState.wait) {
+    return (
+      <StyledMessage>
+        <a id="message">slimeはこちらを見つめている</a>
       </StyledMessage>
     )
   }
   // 戦闘バトル表示
   else if (state == commandState.battle) {
-    // 攻撃アクション
-    if (action == actionState.attack) {
-      return (
-        <StyledMessage>
-          <div id="message">
-            {USER_ROOT.name}の攻撃!<br></br>
-            slimeに50のダメージ!
-          </div>
-        </StyledMessage>
-      )
+    // 味方ターン
+    if (turn == turnState.player) {
+      // 攻撃アクション
+      if (action == actionState.attack) {
+        return (
+          <StyledMessage>
+            <StyledM onClick={() => {
+              setTurn(turnState.enemy);
+            }} id="message">
+              {USER_ROOT.name}の攻撃!<br></br>
+              slimeに50のダメージ!
+            </StyledM>
+          </StyledMessage >
+        )
+      }
+      // アイテムアクション
+      else if (action == actionState.item) {
+        return (
+          <StyledMessage>
+            <StyledM onClick={() => {
+              setTurn(turnState.enemy);
+            }} id="message">
+              {USER_ROOT.name}は薬草を使った!<br></br>
+              HPが20回復した!
+            </StyledM>
+          </StyledMessage>
+        )
+      }
+      // スキルアクション
+      else if (action == actionState.skill) {
+        return (
+          <StyledMessage>
+            <StyledM onClick={() => {
+              setTurn(turnState.enemy);
+            }} id="message">
+              {USER_ROOT.name}はファイアを放った!<br></br>
+              slimeに80のダメージ!
+            </StyledM>
+          </StyledMessage>
+        )
+      }
     }
-    // アイテムアクション
-    else if (action == actionState.item) {
+    // 敵ターン
+    else if (turn == turnState.enemy) {
       return (
         <StyledMessage>
-          <div id="message">
-            {USER_ROOT.name}は薬草を使った!<br></br>
-            HPが20回復した!
-          </div>
-        </StyledMessage>
-      )
-    }
-    // スキルアクション
-    else if (action == actionState.skill) {
-      return (
-        <StyledMessage>
-          <div id="message">
-            {USER_ROOT.name}はファイアを放った!<br></br>
-            slimeに80のダメージ!
-          </div>
-        </StyledMessage>
+          <StyledM onClick={() => {
+            setCommand(commandState.wait);
+            setTurn(turnState.wait);
+          }} id="message">
+            slimeの攻撃!<br></br>
+            {USER_ROOT.name}に10のダメージ!
+          </StyledM>
+        </StyledMessage >
       )
     }
   }

@@ -1,13 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import { actionState } from "../App";
-
-const commandState = {
-  initial: 'INITIAL',
-  battle: 'BATTLE',
-  item: 'ITEM',
-  skill: 'SKILL'
-};
+import { commandState, actionState, turnState } from "../App";
 
 const StyledCommand = styled.div`
   display: inline-block;
@@ -38,15 +31,16 @@ const StyledA = styled.a`
   }
 `
 
-export const Command = ({ state, setCommand, action, setAction }) => {
+export const Command = ({ state, setCommand, action, setAction, setTurn }) => {
   // 戦闘初期表示（コマンド）
-  if (state == commandState.initial) {
+  if (state == commandState.initial || state == commandState.wait) {
     return (
       <StyledCommand>
         <div id="command">
           <StyledA onClick={() => {
             setAction(actionState.attack);
             setCommand(commandState.battle);
+            setTurn(turnState.player);
           }}>攻撃</StyledA><br></br>
           <StyledA onClick={() => {
             setCommand(commandState.item);
@@ -75,6 +69,7 @@ export const Command = ({ state, setCommand, action, setAction }) => {
           <StyledA onClick={() => {
             setAction(actionState.item);
             setCommand(commandState.battle);
+            setTurn(turnState.player);
           }}>薬草</StyledA>
         </div>
       </StyledCommand>
@@ -86,8 +81,9 @@ export const Command = ({ state, setCommand, action, setAction }) => {
       <StyledCommand>
         <div id="command">
           <StyledA onClick={() => {
-            setAction(actionState.skill)
+            setAction(actionState.skill);
             setCommand(commandState.battle);
+            setTurn(turnState.player);
           }}>ファイア</StyledA>
         </div>
       </StyledCommand>
