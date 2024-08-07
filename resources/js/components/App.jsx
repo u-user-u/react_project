@@ -27,8 +27,6 @@ export const turnState = {
   wait: "WAIT",
   player: "PLAYER",
   enemy: "ENEMY",
-  win: "WIN",
-  lose: "LOSE"
 }
 
 const StyledApp = styled.div`

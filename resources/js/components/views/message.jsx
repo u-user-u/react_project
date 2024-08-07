@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import { commandState, actionState, turnState } from '../App';
 import { player, enemy } from "../../class/instance";
-import { countDamage } from "../../lib/lib";
+import * as lib from "../../lib/lib";
 
 const StyledMessage = styled.div`
   display: inline-block;
@@ -58,7 +58,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
             <StyledM onClick={() => {
               setTurn(turnState.enemy);
             }} id="message">
-              {countDamage(player, enemy)}
+              {lib.countDamage(player, enemy)}
             </StyledM>
           </StyledMessage >
         )
@@ -98,7 +98,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
             setCommand(commandState.wait);
             setTurn(turnState.wait);
           }} id="message">
-            {countDamage(enemy, player)}
+            {lib.countDamage(enemy, player)}
           </StyledM>
         </StyledMessage >
       )

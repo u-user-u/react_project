@@ -20,6 +20,15 @@ export function countDamage(who, target) {
   }
 }
 
+// 素早さ順にソート
+export function sortCharacter() {
+  let character = [player, enemy];
+  character.sort((a, b) => b.speed - a.speed);
+  return character;
+}
+console.log(sortCharacter());
+
+// 勝敗決定
 export function judgeWinLose() {
   if (player.HP <= 0) {
     return "LOSE";
