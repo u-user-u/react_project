@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import { Message } from './views/message';
 import { Command } from './views/command';
 import { Parameter } from './views/parameter';
-import { Enemy } from './views/enemy';
+import { EnemyView } from './views/enemy';
 import { useState } from 'react';
+import { player, enemy } from '../class/instance';
 
 export const commandState = {
   initial: "INITIAL",
@@ -32,19 +33,11 @@ const StyledApp = styled.div`
 background-color: black;
 display: block;
 `
-// ===================================================
-// データベース連携
-// ===================================================
-// user情報取得->文字列置換->文字列からオブジェクトへ変換
-// userは変数とする
-export let USER_ROOT = JSON.parse(user.replace(/&quot;/g, '"'));
-console.log(USER_ROOT);
-// abilityも同様
-export let ABILITY_ROOT = JSON.parse(ability.replace(/&quot;/g, '"'));
-console.log(ABILITY_ROOT);
 
-
-export const App = () => {
+// ===================================================
+// Appコンポーネント
+// ===================================================
+const App = () => {
   // コマンドステート
   const [state, setCommand] = useState(commandState.initial);
   // アクションステート
@@ -60,7 +53,7 @@ export const App = () => {
         <Parameter turn={turn} setTurn={setTurn} />
       </div>
       <div>
-        <Enemy />
+        <EnemyView />
       </div>
       <div>
         <Command state={state} setCommand={setCommand} action={action} setAction={setAction} setTurn={setTurn} />

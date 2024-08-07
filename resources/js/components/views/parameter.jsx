@@ -1,9 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import {
-  USER_ROOT,
-  ABILITY_ROOT
-} from '../App';
+import { player } from '../../class/instance';
 
 const StyledParameter = styled.div`
   display: inline-block;
@@ -28,17 +25,17 @@ const StyledPlayer = styled.div`
 
 const Floor = () => {
   return (
-    <StyledFloor>第{USER_ROOT.tmp_floor}層</StyledFloor>
+    <StyledFloor>第{player.tmp_floor}層</StyledFloor>
   )
 }
 
 const Player = () => {
   return (
     <StyledPlayer>
-      {USER_ROOT.name}<br></br>
-      Lv. {ABILITY_ROOT.level}<br></br>
-      HP : {ABILITY_ROOT.tmp_HP}/{ABILITY_ROOT.max_HP}<br></br>
-      MP : {ABILITY_ROOT.tmp_MP}/{ABILITY_ROOT.max_MP}<br></br>
+      {player.name}<br></br>
+      Lv. {player.level}<br></br>
+      HP : {player.tmpHP}/{player.maxHP}<br></br>
+      MP : {player.tmpMP}/{player.maxMP}<br></br>
     </StyledPlayer>
   )
 }

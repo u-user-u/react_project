@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import { commandState, actionState, turnState } from '../App';
-import { USER_ROOT } from "../App";
+import { player, enemy } from "../../class/instance";
 
 const StyledMessage = styled.div`
   display: inline-block;
@@ -34,7 +34,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
   if (state == commandState.initial) {
     return (
       <StyledMessage>
-        <a id="message">slimeがあらわれた!</a>
+        <a id="message">{enemy.name}があらわれた!</a>
       </StyledMessage>
     )
   }
@@ -42,7 +42,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
   else if (state == commandState.wait) {
     return (
       <StyledMessage>
-        <a id="message">slimeはこちらを見つめている</a>
+        <a id="message">{enemy.name}はこちらを見つめている</a>
       </StyledMessage>
     )
   }
@@ -57,8 +57,8 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
             <StyledM onClick={() => {
               setTurn(turnState.enemy);
             }} id="message">
-              {USER_ROOT.name}の攻撃!<br></br>
-              slimeに50のダメージ!
+              {player.name}の攻撃!<br></br>
+              {enemy.name}に50のダメージ!
             </StyledM>
           </StyledMessage >
         )
@@ -70,7 +70,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
             <StyledM onClick={() => {
               setTurn(turnState.enemy);
             }} id="message">
-              {USER_ROOT.name}は薬草を使った!<br></br>
+              {player.name}は薬草を使った!<br></br>
               HPが20回復した!
             </StyledM>
           </StyledMessage>
@@ -83,8 +83,8 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
             <StyledM onClick={() => {
               setTurn(turnState.enemy);
             }} id="message">
-              {USER_ROOT.name}はファイアを放った!<br></br>
-              slimeに80のダメージ!
+              {player.name}はファイアを放った!<br></br>
+              {enemy.name}に80のダメージ!
             </StyledM>
           </StyledMessage>
         )
@@ -98,8 +98,8 @@ export const Message = ({ state, setCommand, action, turn, setTurn }) => {
             setCommand(commandState.wait);
             setTurn(turnState.wait);
           }} id="message">
-            slimeの攻撃!<br></br>
-            {USER_ROOT.name}に10のダメージ!
+            {enemy.name}の攻撃!<br></br>
+            {player.name}に10のダメージ!
           </StyledM>
         </StyledMessage >
       )

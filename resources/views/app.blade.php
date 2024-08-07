@@ -39,6 +39,8 @@
   <script>
     const user = '{{$user}}';
     const ability = '{{$ability}}';
+    const enemies = '{{$enemy}}';
+    const enemyAbility = '{{$enemyability}}';
   </script>
   <!-- ここまで -->
 </body>
