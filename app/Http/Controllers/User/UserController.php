@@ -38,6 +38,19 @@ class UserController extends Controller
             $items[] = $item;
         }
 
-        return [$items, $itembox];
+        return $items;
+    }
+
+    public function fetchSkill()
+    {
+        $skilltree = Skilltree::where('user_id', 1)->get();
+        $skills = [];
+        foreach ($skilltree as $s) {
+            // $skillをEloquentModelから配列に変換
+            $skill = Skill::where('id', $s->skill_id)->first()->toArray();
+            $skills[] = $skill;
+        }
+
+        return $skills;
     }
 }

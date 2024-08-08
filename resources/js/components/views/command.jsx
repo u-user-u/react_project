@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import { commandState, actionState, turnState } from "../App";
-import { itembox } from "../../class/instance";
+import { itembox, skilltree } from "../../class/instance";
 
 const StyledCommand = styled.div`
   display: inline-block;
@@ -32,19 +32,19 @@ const StyledA = styled.a`
   }
 `
 
-export const Command = ({ state, setCommand, setAction, setTurn, setItem }) => {
-  // アイテムボックス
-  const itemBox = itembox.map((i) =>
+export const Command = ({ state, setCommand, setAction, setTurn, setEntity }) => {
+  // アイテムボックス, スキルツリー表示
+  // 引数にアイテムボックスorスキルツリーを指定
+  const showEntities = (entities) => entities.map((e) =>
     // array.map()を使ったとき、一番上の要素にkeyを設定しないとwarningが出る
-    <React.Fragment key={i.name}>
+    <React.Fragment key={e.name}>
       <StyledA
         onClick={() => {
-          setAction(actionState.item);
+          setAction(state);
           setCommand(commandState.battle);
           setTurn(turnState.prev);
-          setItem("none");
         }}
-        onMouseEnter={() => setItem(i)}>{i.name}</StyledA><br></br>
+        onMouseEnter={() => setEntity(e)}>{e.name}</StyledA><br></br>
     </React.Fragment>
   );
 
@@ -82,7 +82,7 @@ export const Command = ({ state, setCommand, setAction, setTurn, setItem }) => {
     return (
       <StyledCommand>
         <div id="command">
-          {itemBox}
+          {showEntities(itembox)}
         </div>
       </StyledCommand>
     )
@@ -92,11 +92,7 @@ export const Command = ({ state, setCommand, setAction, setTurn, setItem }) => {
     return (
       <StyledCommand>
         <div id="command">
-          <StyledA onClick={() => {
-            setAction(actionState.skill);
-            setCommand(commandState.battle);
-            setTurn(turnState.prev);
-          }}>ファイア</StyledA>
+          {showEntities(skilltree)}
         </div>
       </StyledCommand>
     )
