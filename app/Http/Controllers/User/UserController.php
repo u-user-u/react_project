@@ -8,7 +8,8 @@ use App\Models\User;
 use App\Models\Ability;
 use App\Models\Itembox;
 use App\Models\Item;
-use App\Http\Controllers\Enemy\EnemyController;
+use App\Models\Skilltree;
+use App\Models\Skill;
 
 class UserController extends Controller
 {
@@ -28,5 +29,15 @@ class UserController extends Controller
 
     public function fetchItem()
     {
+        $itembox = Itembox::where('user_id', 1)->get();
+        $items = [];
+        foreach ($itembox as $i) {
+            // $itemをEloquentModelから配列に変換 -> 末尾に"amount" => amountを追加
+            $item = Item::where('id', $i->item_id)->first()->toArray();
+            $item['amount'] = $i->amount;
+            $items[] = $item;
+        }
+
+        return [$items, $itembox];
     }
 }

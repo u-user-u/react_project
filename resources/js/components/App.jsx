@@ -57,6 +57,8 @@ const App = () => {
   const [turn, setTurn] = useState(turnState.wait);
   // リザルトステート
   const [result, setResult] = useState(resultState.none);
+  // ホバーアイテムステート
+  const [item, setItem] = useState("none");
 
   return (
     <StyledApp>
@@ -67,8 +69,8 @@ const App = () => {
         <EnemyView />
       </div>
       <div>
-        <Command state={state} setCommand={setCommand} action={action} setAction={setAction} setTurn={setTurn} />
-        <Message state={state} setCommand={setCommand} action={action} turn={turn} setTurn={setTurn} result={result} setResult={setResult} />
+        <Command state={state} setCommand={setCommand} setAction={setAction} setTurn={setTurn} setItem={setItem} />
+        <Message state={state} setCommand={setCommand} action={action} turn={turn} setTurn={setTurn} result={result} setResult={setResult} item={item} />
       </div>
     </StyledApp>
   )

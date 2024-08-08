@@ -21,11 +21,11 @@ export class Player {
     this.record_floor = record_floor;
   }
 
-  action(action, enemy) {
+  action(action, enemy, item = "none") {
     if (action == actionState.attack) {
       return countDamage(this, enemy);
     } else if (action == actionState.item) {
-      return useItem(this, enemy);
+      return useItem(this, enemy, item);
     } else if (action == actionState.skill) {
       return useSkill(this, enemy);
     }
@@ -54,6 +54,18 @@ export class Enemy {
   }
 }
 
+// ==================================
+// アイテムクラス
+// ==================================
+export class Item {
+  constructor(name, type, value, amount) {
+    this.name = name;
+    this.type = type;
+    this.value = value;
+    this.amount = amount;
+  }
+}
+
 // ダメージ処理
 function countDamage(who, target) {
   // ダメージ計算
@@ -72,7 +84,7 @@ function countDamage(who, target) {
   }
 }
 
-function useItem(who, enemy) {
+function useItem(who, enemy, item) {
   who.HP += 20;
   if (who.maxHP <= who.HP) {
     who.HP = who.maxHP;
