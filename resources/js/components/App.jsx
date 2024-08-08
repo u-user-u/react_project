@@ -6,7 +6,6 @@ import { Command } from './views/command';
 import { Parameter } from './views/parameter';
 import { EnemyView } from './views/enemy';
 import { useState } from 'react';
-import { player, enemy } from '../class/instance';
 
 export const commandState = {
   initial: "INITIAL",
@@ -30,7 +29,8 @@ export const turnState = {
 }
 
 export const resultState = {
-  none: "NONE",
+  battle: "BATTLE",
+  field: "FIELD",
   win: "WIN",
   lose: "LOSE",
   getEXP: "GETEXP",
@@ -56,9 +56,11 @@ const App = () => {
   // 順番ステート
   const [turn, setTurn] = useState(turnState.wait);
   // リザルトステート
-  const [result, setResult] = useState(resultState.none);
+  const [result, setResult] = useState(resultState.battle);
   // ホバーステート
   const [entity, setEntity] = useState("none");
+  // テキストステート
+  const [text, setText] = useState(null);
 
   return (
     <StyledApp>
@@ -70,7 +72,7 @@ const App = () => {
       </div>
       <div>
         <Command state={state} setCommand={setCommand} setAction={setAction} setTurn={setTurn} setEntity={setEntity} />
-        <Message state={state} setCommand={setCommand} action={action} turn={turn} setTurn={setTurn} result={result} setResult={setResult} entity={entity} setEntity={setEntity} />
+        <Message state={state} setCommand={setCommand} action={action} turn={turn} setTurn={setTurn} result={result} setResult={setResult} entity={entity} setEntity={setEntity} text={text} setText={setText} />
       </div>
     </StyledApp>
   )

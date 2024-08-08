@@ -15,6 +15,6 @@ export function judgeWinLose() {
   } else if (enemy.HP <= 0) {
     return "WIN";
   } else {
-    return;
+    return "BATTLE";
   }
 }
