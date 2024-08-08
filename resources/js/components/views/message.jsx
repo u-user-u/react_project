@@ -30,14 +30,26 @@ const StyledM = styled.a`
   }
 `
 
-export const Message = ({ state, setCommand, action, turn, setTurn, result, setResult, item }) => {
-  // アイテムメッセージ
-  const itemMessage = () => {
-    if (item == "none") {
-      return <div id="message">{player.name}は道具袋を開いた</div>;
+export const Message = ({ state, setCommand, action, turn, setTurn, result, setResult, entity, setEntity }) => {
+  // アイテム, スキルメッセージ
+  const entityMessage = (entities = null) => {
+    // アイテムのとき
+    if (state == commandState.item) {
+      if (entity == "none") {
+        return <div id="message">{player.name}は道具袋を開いた</div>;
+      }
+      else if (entity.type == "heal") {
+        return <div id="message">HPが{entity.value}回復する</div>;
+      }
     }
-    if (item.type == "heal") {
-      return <div id="message">HPが{item.value}回復する</div>;
+    // スキルのとき
+    else if (state == commandState.skill) {
+      if (entity == "none") {
+        return <div id="message">{player.name}はスキルを準備している...</div>;
+      }
+      else if (entity.type == "attack") {
+        return <div id="message">消費MP : {entities.useMP}<br></br>炎の魔法で敵を焼き尽くす</div>;
+      }
     }
   }
 
@@ -68,7 +80,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn, result, setR
           <StyledM onClick={() => {
             setTurn(turnState.next);
           }} id="message">
-            {character[0].action(action, character[1])}
+            {character[0].action(action, character[1], entity)}
           </StyledM>
         </StyledMessage >
       )
@@ -80,8 +92,9 @@ export const Message = ({ state, setCommand, action, turn, setTurn, result, setR
           <StyledM onClick={() => {
             setCommand(commandState.wait);
             setTurn(turnState.wait);
+            setEntity("none");
           }} id="message">
-            {character[1].action(action, character[0])}
+            {character[1].action(action, character[0], entity)}
           </StyledM>
         </StyledMessage >
       )
@@ -91,7 +104,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn, result, setR
   else if (state == commandState.item) {
     return (
       <StyledMessage>
-        {itemMessage()}
+        {entityMessage()}
       </StyledMessage>
     )
   }
@@ -99,7 +112,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn, result, setR
   else if (state == commandState.skill) {
     return (
       <StyledMessage>
-        <div id="message">炎の魔法で敵を焼き尽くす</div>
+        {entityMessage(entity)}
       </StyledMessage>
     )
   }

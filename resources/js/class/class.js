@@ -21,13 +21,13 @@ export class Player {
     this.record_floor = record_floor;
   }
 
-  action(action, enemy, item = "none") {
+  action(action, enemy, entity = "none") {
     if (action == actionState.attack) {
       return countDamage(this, enemy);
     } else if (action == actionState.item) {
-      return useItem(this, enemy, item);
+      return useItem(this, enemy, entity);
     } else if (action == actionState.skill) {
-      return useSkill(this, enemy);
+      return useSkill(this, enemy, entity);
     }
   }
 }
@@ -49,7 +49,7 @@ export class Enemy {
     this.EXP = EXP;
   }
 
-  action(action, enemy) {
+  action(action, enemy, entity = "none") {
     return countDamage(this, enemy);
   }
 }
@@ -63,6 +63,18 @@ export class Item {
     this.type = type;
     this.value = value;
     this.amount = amount;
+  }
+}
+
+// ==================================
+// スキルクラス
+// ==================================
+export class Skill {
+  constructor(name, type, value, useMP) {
+    this.name = name;
+    this.type = type;
+    this.value = value;
+    this.useMP = useMP;
   }
 }
 
@@ -85,16 +97,18 @@ function countDamage(who, target) {
 }
 
 function useItem(who, enemy, item) {
-  who.HP += 20;
-  if (who.maxHP <= who.HP) {
-    who.HP = who.maxHP;
-    return who.name + "は薬草を使った!\nHPが全快した!";
+  if (item.type == "heal") {
+    who.HP += item.value;
+    if (who.maxHP <= who.HP) {
+      who.HP = who.maxHP;
+      return who.name + "は薬草を使った!\nHPが全快した!";
+    }
+    return who.name + "は薬草を使った!\nHPが" + item.value + "回復した!";
   }
-  return who.name + "は薬草を使った!\nHPが20回復した!";
 }
 
-function useSkill(who, enemy) {
-  const damage = who.intelligence;
+function useSkill(who, enemy, skill) {
+  const damage = who.intelligence * skill.value;
   const useMP = 5;
   // MPが足りない場合
   if (who.MP < useMP) {
@@ -107,6 +121,6 @@ function useSkill(who, enemy) {
     who.MP -= useMP;
     // デバッグ用ログ表示
     console.log("スキル発動\n" + enemy.name + "\nHP:" + enemy.HP);
-    return who.name + "はファイアを放った!\n" + enemy.name + "に" + damage + "のダメージ!";
+    return who.name + "は" + skill.name + "を放った!\n" + enemy.name + "に" + damage + "のダメージ!";
   }
 }

@@ -42,6 +42,7 @@
     const enemies = '{{$enemy}}';
     const enemyAbility = '{{$enemyability}}';
     const stritembox = '{{json_encode($items)}}';
+    const strskilltree = '{{json_encode($skills)}}';
   </script>
   <!-- ここまで -->
 </body>
