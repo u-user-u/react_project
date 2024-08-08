@@ -26,7 +26,7 @@ export let enemy = new Enemy(e.name, player.tmp_floor, null, ea.HP, ea.MP, ea.at
 export let itembox = items.map((i) => new Item(i.name, i.type, i.value, i.amount));
 
 // スキルツリー
-export let skilltree = skills.map((s) => new Skill(s.name, s.type, s.value, s.required));
+export let skilltree = skills.map((s) => new Skill(s.name, s.type, s.value, s.required, s.detail));
 
 console.log(player);
 console.log(enemy);
