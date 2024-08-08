@@ -15,6 +15,7 @@ class CommonController extends Controller
         // ユーザー情報フェッチ処理
         $user = $useCon->fetchUser();
         $ability = $useCon->fetchAbility();
+        [$items, $itembox] = $useCon->fetchItem();
 
         //エネミーコントローラーインスタンス化
         $eneCon = new EnemyController;
@@ -26,6 +27,8 @@ class CommonController extends Controller
             ->with('user', $user)
             ->with('ability', $ability)
             ->with('enemy', $enemy)
-            ->with('enemyability', $e_ability);
+            ->with('enemyability', $e_ability)
+            ->with('items', $items)
+            ->with('itembox', $itembox);
     }
 }

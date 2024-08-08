@@ -1,6 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import { commandState, actionState, turnState } from "../App";
+import { itembox } from "../../class/instance";
 
 const StyledCommand = styled.div`
   display: inline-block;
@@ -31,7 +32,22 @@ const StyledA = styled.a`
   }
 `
 
-export const Command = ({ state, setCommand, action, setAction, setTurn }) => {
+export const Command = ({ state, setCommand, setAction, setTurn, setItem }) => {
+  // アイテムボックス
+  const itemBox = itembox.map((i) =>
+    // array.map()を使ったとき、一番上の要素にkeyを設定しないとwarningが出る
+    <React.Fragment key={i.name}>
+      <StyledA
+        onClick={() => {
+          setAction(actionState.item);
+          setCommand(commandState.battle);
+          setTurn(turnState.prev);
+          setItem("none");
+        }}
+        onMouseEnter={() => setItem(i)}>{i.name}</StyledA><br></br>
+    </React.Fragment>
+  );
+
   // 戦闘初期表示（コマンド）
   if (state == commandState.initial || state == commandState.wait) {
     return (
@@ -66,11 +82,7 @@ export const Command = ({ state, setCommand, action, setAction, setTurn }) => {
     return (
       <StyledCommand>
         <div id="command">
-          <StyledA onClick={() => {
-            setAction(actionState.item);
-            setCommand(commandState.battle);
-            setTurn(turnState.prev);
-          }}>薬草</StyledA>
+          {itemBox}
         </div>
       </StyledCommand>
     )

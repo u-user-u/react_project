@@ -30,7 +30,17 @@ const StyledM = styled.a`
   }
 `
 
-export const Message = ({ state, setCommand, action, turn, setTurn, result, setResult }) => {
+export const Message = ({ state, setCommand, action, turn, setTurn, result, setResult, item }) => {
+  // アイテムメッセージ
+  const itemMessage = () => {
+    if (item == "none") {
+      return <div id="message">{player.name}は道具袋を開いた</div>;
+    }
+    if (item.type == "heal") {
+      return <div id="message">HPが{item.value}回復する</div>;
+    }
+  }
+
   // 戦闘初期表示
   if (state == commandState.initial) {
     return (
@@ -81,7 +91,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn, result, setR
   else if (state == commandState.item) {
     return (
       <StyledMessage>
-        <div id="message">HPが20回復する</div>
+        {itemMessage()}
       </StyledMessage>
     )
   }
