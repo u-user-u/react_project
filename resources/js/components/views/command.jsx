@@ -35,18 +35,22 @@ const StyledA = styled.a`
 export const Command = ({ state, setCommand, setAction, setTurn, setEntity }) => {
   // アイテムボックス, スキルツリー表示
   // 引数にアイテムボックスorスキルツリーを指定
-  const showEntities = (entities) => entities.map((e) =>
-    // array.map()を使ったとき、一番上の要素にkeyを設定しないとwarningが出る
-    <React.Fragment key={e.name}>
-      <StyledA
-        onClick={() => {
-          setAction(state);
-          setCommand(commandState.battle);
-          setTurn(turnState.prev);
-        }}
-        onMouseEnter={() => setEntity(e)}>{e.name}</StyledA><br></br>
-    </React.Fragment>
-  );
+  const showEntities = (entities) => entities.map((e) => {
+    if (e.amount > 0 || e.amount == null) {
+      // array.map()を使ったとき、一番上の要素にkeyを設定しないとwarningが出る
+      return (
+        <React.Fragment key={e.name}>
+          <StyledA
+            onClick={() => {
+              setAction(state);
+              setCommand(commandState.battle);
+              setTurn(turnState.prev);
+            }}
+            onMouseEnter={() => setEntity(e)}>{e.name} {e.amount > 1 ? "×" + e.amount : ""}</StyledA><br></br>
+        </React.Fragment>
+      )
+    }
+  });
 
   // 戦闘初期表示（コマンド）
   if (state == commandState.initial || state == commandState.wait) {
