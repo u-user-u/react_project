@@ -8,15 +8,15 @@ use App\Http\Controllers\User\UserController;
 
 class CommonController extends Controller
 {
-    public function fetchData()
+    public function fetchData($name)
     {
         // ユーザーコントローラーインスタンス化
         $useCon = new UserController;
         // ユーザー情報フェッチ処理
-        $user = $useCon->fetchUser();
-        $ability = $useCon->fetchAbility();
-        $items = $useCon->fetchItem();
-        $skills = $useCon->fetchSkill();
+        $user = $useCon->fetchUser($name);
+        $ability = $useCon->fetchAbility($user->id);
+        $items = $useCon->fetchItem($user->id);
+        $skills = $useCon->fetchSkill($user->id);
 
         //エネミーコントローラーインスタンス化
         $eneCon = new EnemyController;
@@ -47,6 +47,6 @@ class CommonController extends Controller
     // ロード処理、後日実装予定
     public function loadUser(Request $request)
     {
-        return redirect('/app');
+        return $this->fetchData($request->input('name'));
     }
 }

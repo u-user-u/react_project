@@ -13,23 +13,23 @@ use App\Models\Skill;
 
 class UserController extends Controller
 {
-    public function fetchUser()
+    public function fetchUser($name)
     {
-        $user = User::query()->where('id', 1)->first();
+        $user = User::query()->where('name', $name)->first();
 
         return $user;
     }
 
-    public function fetchAbility()
+    public function fetchAbility($id)
     {
-        $ability = Ability::where('user_id', 1)->first();
+        $ability = Ability::where('user_id', $id)->first();
 
         return $ability;
     }
 
-    public function fetchItem()
+    public function fetchItem($id)
     {
-        $itembox = Itembox::where('user_id', 1)->get();
+        $itembox = Itembox::where('user_id', $id)->get();
         $items = [];
         foreach ($itembox as $i) {
             // $itemをEloquentModelから配列に変換 -> 末尾に"amount" => amountを追加
@@ -41,9 +41,9 @@ class UserController extends Controller
         return $items;
     }
 
-    public function fetchSkill()
+    public function fetchSkill($id)
     {
-        $skilltree = Skilltree::where('user_id', 1)->get();
+        $skilltree = Skilltree::where('user_id', $id)->get();
         $skills = [];
         foreach ($skilltree as $s) {
             // $skillをEloquentModelから配列に変換
