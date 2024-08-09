@@ -96,10 +96,16 @@ export const Message = ({ state, setCommand, action, turn, setTurn, result, setR
         return (
           <StyledMessage>
             <StyledM onClick={() => {
-              setCommand(commandState.wait);
-              setTurn(turnState.wait);
-              setEntity("none");
-              setResult(lib.judgeWinLose());
+              if (lib.judgeWinLose() == "BATTLE") {
+                setCommand(commandState.wait);
+                setTurn(turnState.wait);
+                setEntity("none");
+                setResult(lib.judgeWinLose());
+              } else {
+                setTurn(turnState.wait);
+                setEntity("none");
+                setResult(lib.judgeWinLose());
+              }
             }} id="message">
               {character[1].action(action, character[0], entity)}
             </StyledM>
@@ -134,6 +140,23 @@ export const Message = ({ state, setCommand, action, turn, setTurn, result, setR
       </StyledMessage>
     );
   }
+  // リザルト敗北
+  else if (result == resultState.lose) {
+    return (
+      <StyledMessage>
+        <StyledM onClick={() => {
+          setResult(resultState.battle);
+          setCommand(commandState.initial);
+          player.HP = player.maxHP;
+          player.MP = player.maxMP;
+          player.state = "";
+          player.tmp_floor = 1;
+        }}>
+          {player.name}は倒れてしまった...
+        </StyledM>
+      </StyledMessage>
+    );
+  }
   // リザルト経験値取得
   else if (result == resultState.getEXP) {
     return (
@@ -143,6 +166,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn, result, setR
           if (prev_level == player.level) {
             setCommand(commandState.initial);
             setResult(resultState.battle);
+            player.tmp_floor += 1;
           } else {
             setResult(resultState.levelUp);
           }
@@ -160,6 +184,7 @@ export const Message = ({ state, setCommand, action, turn, setTurn, result, setR
         <StyledM onClick={() => {
           setCommand(commandState.initial);
           setResult(resultState.battle);
+          player.tmp_floor += 1;
         }}>
           {player.name}のレベルが上がった!<br></br>
           Lv. {prev_level} → {player.level}<br></br>

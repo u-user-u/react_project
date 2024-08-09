@@ -135,7 +135,7 @@ function countDamage(who, target) {
   // ダメージが1以上の場合
   else {
     // ダメージ処理後、メッセージ表示
-    target.HP -= damage;
+    damage > target.HP ? target.HP = 0 : target.HP -= damage;
     // デバッグ用ログ表示
     console.log(target.name + "\nHP:" + target.HP);
     return who.name + "の攻撃!\n" + target.name + "に" + damage + "のダメージ！";
@@ -165,7 +165,7 @@ function useSkill(who, enemy, skill) {
   // 通常発動
   else {
     // ダメージ,MP処理後、メッセージ表示
-    enemy.HP -= damage;
+    damage > enemy.HP ? enemy.HP = 0 : enemy.HP -= damage;
     who.MP -= useMP;
     // デバッグ用ログ表示
     console.log("スキル発動\n" + enemy.name + "\nHP:" + enemy.HP);
