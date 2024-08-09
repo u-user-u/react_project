@@ -144,6 +144,7 @@ function countDamage(who, target) {
 
 function useItem(who, enemy, item) {
   item.amount -= 1;
+  console.log(item);
   if (item.type == "heal") {
     who.HP += item.value;
     if (who.maxHP <= who.HP) {
