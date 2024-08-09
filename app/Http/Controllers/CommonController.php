@@ -32,4 +32,21 @@ class CommonController extends Controller
             ->with('items', $items)
             ->with('skills', $skills);
     }
+
+    public function showTitle()
+    {
+        return view('title');
+    }
+
+    // 登録処理、後日実装予定
+    public function registerUser(Request $request)
+    {
+        return redirect('/app');
+    }
+
+    // ロード処理、後日実装予定
+    public function loadUser(Request $request)
+    {
+        return redirect('/app');
+    }
 }
