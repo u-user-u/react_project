@@ -20,7 +20,7 @@ const StyledCommand = styled.div`
   user-select: none;
 `
 
-const StyledA = styled.a`
+export const StyledA = styled.a`
   text-decoration: none;
   color: white;
   &::before {

@@ -13,6 +13,7 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "react-router-dom": "^5.3.4",
         "styled-components": "^5.3.11",
         "typescript": "^4.9.5",
         "webpack": "^5.93.0",
