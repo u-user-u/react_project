@@ -8,6 +8,8 @@ use App\Http\Controllers\User\UserController;
 use App\Models\Ability;
 use App\Models\Equipment;
 use App\Models\Equipmentbox;
+use App\Models\Item;
+use App\Models\Itembox;
 use App\Models\User;
 
 class CommonController extends Controller
@@ -63,11 +65,19 @@ class CommonController extends Controller
             $ability->user_id = $user->id;
             $ability->save();
 
+            // 初期アイテム生成
+            $itembox = new Itembox();
+            $itembox->user_id = $user->id;
+            $itembox->item_id = 1;
+            $itembox->amount = 5;
+            $itembox->save();
+
             // 初期装備生成
             for ($i = 1; $i <= 3; $i++) {
                 $equipmentbox = new Equipmentbox();
                 $equipmentbox->user_id = $user->id;
                 $equipmentbox->equipment_id = $i;
+                $equipmentbox->wearing = 1;
                 $equipmentbox->save();
             }
 

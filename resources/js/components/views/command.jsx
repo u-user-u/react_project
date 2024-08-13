@@ -54,6 +54,24 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
     }
   });
 
+  const showEntitiesOnField = (entities) => entities.map((e) => {
+    if (e.amount > 0 || e.amount == null) {
+      if (e.wearing == false || e.wearing == null) {
+        // array.map()を使ったとき、一番上の要素にkeyを設定しないとwarningが出る
+        return (
+          <React.Fragment key={e.name}>
+            <StyledA
+              onClick={() => {
+                setAction(state);
+                setCommand(commandState.battle);
+              }}
+              onMouseEnter={() => setEntity(e)}>{e.name} {e.amount > 1 ? "×" + e.amount : ""}</StyledA><br></br>
+          </React.Fragment>
+        )
+      }
+    }
+  });
+
   // フィールド画面
   if (result == resultState.field) {
     if (state == commandState.initial) {
@@ -85,12 +103,20 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
         <StyledCommand />
       )
     }
+    // 非表示
+    else if (state == commandState.battle) {
+      return (
+        <StyledCommand>
+          <div id="command"></div>
+        </StyledCommand>
+      )
+    }
     // アイテム表示
     else if (state == commandState.item) {
       return (
         <StyledCommand>
           <div id="command">
-            {showEntities(itembox)}
+            {showEntitiesOnField(itembox)}
           </div>
         </StyledCommand>
       )
@@ -100,7 +126,7 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
       return (
         <StyledCommand>
           <div id="command">
-            {showEntities(equipmentbox)}
+            {showEntitiesOnField(equipmentbox)}
           </div>
         </StyledCommand>
       )

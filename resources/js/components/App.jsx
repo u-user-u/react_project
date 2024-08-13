@@ -23,7 +23,8 @@ export const actionState = {
   initial: null,
   attack: "ATTACK",
   item: "ITEM",
-  skill: "SKILL"
+  skill: "SKILL",
+  equipment: "EQUIPMENT"
 }
 
 export const turnState = {
@@ -72,11 +73,11 @@ const App = () => {
         <Parameter turn={turn} setTurn={setTurn} />
       </div>
       <div>
-        <EnemyView />
+        <EnemyView result={result} />
       </div>
       <div>
         <Command state={state} setCommand={setCommand} setAction={setAction} setTurn={setTurn} setEntity={setEntity} result={result} />
-        <Message state={state} setCommand={setCommand} action={action} turn={turn} setTurn={setTurn} result={result} setResult={setResult} entity={entity} setEntity={setEntity} text={text} setText={setText} />
+        <Message state={state} setCommand={setCommand} action={action} setAction={setAction} turn={turn} setTurn={setTurn} result={result} setResult={setResult} entity={entity} setEntity={setEntity} text={text} setText={setText} />
       </div>
     </StyledApp>
   )

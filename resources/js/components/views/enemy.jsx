@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import { resultState } from "../App";
 
 const StyledEnemy = styled.div`
   display: inline-block;
@@ -12,10 +13,19 @@ const StyledImage = styled.img`
   margin-top: 60px
 `
 
-export const EnemyView = () => {
-  return (
-    <StyledEnemy>
-      <StyledImage src="../../../images/slime.png"></StyledImage>
-    </StyledEnemy>
-  )
+export const EnemyView = ({ result }) => {
+  // 戦闘中
+  if (result == resultState.battle) {
+    return (
+      <StyledEnemy>
+        <StyledImage src="../../../images/slime.png"></StyledImage>
+      </StyledEnemy>
+    )
+  }
+  // 戦闘以外
+  else {
+    return (
+      <StyledEnemy />
+    )
+  }
 }
