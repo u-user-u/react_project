@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
-import { commandState, actionState, turnState } from "../App";
-import { itembox, skilltree } from "../../class/instance";
+import { commandState, actionState, turnState, resultState } from "../App";
+import { itembox, skilltree, equipmentbox } from "../../class/instance";
 
 const StyledCommand = styled.div`
   display: inline-block;
@@ -32,73 +32,157 @@ export const StyledA = styled.a`
   }
 `
 
-export const Command = ({ state, setCommand, setAction, setTurn, setEntity }) => {
+export const Command = ({ state, setCommand, setAction, setTurn, setEntity, result }) => {
   // アイテムボックス, スキルツリー表示
   // 引数にアイテムボックスorスキルツリーを指定
   const showEntities = (entities) => entities.map((e) => {
     if (e.amount > 0 || e.amount == null) {
-      // array.map()を使ったとき、一番上の要素にkeyを設定しないとwarningが出る
-      return (
-        <React.Fragment key={e.name}>
-          <StyledA
-            onClick={() => {
-              setAction(state);
-              setCommand(commandState.battle);
-              setTurn(turnState.prev);
-            }}
-            onMouseEnter={() => setEntity(e)}>{e.name} {e.amount > 1 ? "×" + e.amount : ""}</StyledA><br></br>
-        </React.Fragment>
-      )
+      if (e.wearing == false || e.wearing == null) {
+        // array.map()を使ったとき、一番上の要素にkeyを設定しないとwarningが出る
+        return (
+          <React.Fragment key={e.name}>
+            <StyledA
+              onClick={() => {
+                setAction(state);
+                setCommand(commandState.battle);
+                setTurn(turnState.prev);
+              }}
+              onMouseEnter={() => setEntity(e)}>{e.name} {e.amount > 1 ? "×" + e.amount : ""}</StyledA><br></br>
+          </React.Fragment>
+        )
+      }
     }
   });
 
-  // 戦闘初期表示（コマンド）
-  if (state == commandState.initial || state == commandState.wait) {
-    return (
-      <StyledCommand>
-        <div id="command">
-          <StyledA onClick={() => {
-            setAction(actionState.attack);
-            setCommand(commandState.battle);
-            setTurn(turnState.prev);
-          }}>攻撃</StyledA><br></br>
-          <StyledA onClick={() => {
-            setCommand(commandState.item);
-          }}>アイテム</StyledA><br></br>
-          <StyledA onClick={() => {
-            setCommand(commandState.skill);
-          }}>スキル</StyledA>
-        </div>
-      </StyledCommand>
-    )
+  // フィールド画面
+  if (result == resultState.field) {
+    if (state == commandState.initial) {
+      return (
+        <StyledCommand>
+          <div id="command">
+            <StyledA onClick={() => {
+              setCommand(commandState.search);
+            }}>探索</StyledA><br></br>
+            <StyledA onClick={() => {
+              setCommand(commandState.item);
+            }}>アイテム</StyledA><br></br>
+            <StyledA onClick={() => {
+              setCommand(commandState.equipment);
+            }}>装備</StyledA><br></br>
+            <StyledA onClick={() => {
+              setCommand(commandState.status);
+            }}>つよさ</StyledA><br></br>
+            <StyledA onClick={() => {
+              setCommand(commandState.save);
+            }}>セーブして終わる</StyledA>
+          </div>
+        </StyledCommand>
+      )
+    }
+    // 探索表示
+    else if (state == commandState.search) {
+      return (
+        <StyledCommand />
+      )
+    }
+    // アイテム表示
+    else if (state == commandState.item) {
+      return (
+        <StyledCommand>
+          <div id="command">
+            {showEntities(itembox)}
+          </div>
+        </StyledCommand>
+      )
+    }
+    // 装備表示
+    else if (state == commandState.equipment) {
+      return (
+        <StyledCommand>
+          <div id="command">
+            {showEntities(equipmentbox)}
+          </div>
+        </StyledCommand>
+      )
+    }
+    // つよさ表示
+    else if (state == commandState.status) {
+      return (
+        <StyledCommand></StyledCommand>
+      )
+    }
+    // セーブ表示
+    else if (state == commandState.save) {
+      return (
+        <StyledCommand>
+          <div id="command">
+            <form name="save" action="save" method="GET">
+              <StyledA onClick={() => {
+                // save();
+                document.save.submit();
+              }}>
+                はい
+              </StyledA><br></br>
+              <StyledA onClick={() => {
+                setCommand(commandState.initial)
+              }}>いいえ</StyledA>
+            </form>
+          </div>
+        </StyledCommand>
+      )
+    }
   }
-  // 攻撃
-  else if (state == commandState.battle) {
-    return (
-      <StyledCommand>
-        <div id="command">
-        </div>
-      </StyledCommand>
-    )
-  }
-  // アイテム表示
-  else if (state == commandState.item) {
-    return (
-      <StyledCommand>
-        <div id="command">
-          {showEntities(itembox)}
-        </div>
-      </StyledCommand>
-    )
-  }
-  // スキル表示
-  else if (state == commandState.skill) {
-    return (
-      <StyledCommand>
-        <div id="command">
-          {showEntities(skilltree)}
-        </div>
-      </StyledCommand>
-    )
+
+  // 戦闘画面
+  else if (result == resultState.battle) {
+    // 戦闘初期表示（コマンド）
+    if (state == commandState.initial || state == commandState.wait) {
+      return (
+        <StyledCommand>
+          <div id="command">
+            <StyledA onClick={() => {
+              setAction(actionState.attack);
+              setCommand(commandState.battle);
+              setTurn(turnState.prev);
+            }}>攻撃</StyledA><br></br>
+            <StyledA onClick={() => {
+              setCommand(commandState.item);
+            }}>アイテム</StyledA><br></br>
+            <StyledA onClick={() => {
+              setCommand(commandState.skill);
+            }}>スキル</StyledA>
+          </div>
+        </StyledCommand>
+      )
+    }
+    // 攻撃
+    else if (state == commandState.battle) {
+      return (
+        <StyledCommand>
+          <div id="command">
+          </div>
+        </StyledCommand>
+      )
+    }
+    // アイテム表示
+    else if (state == commandState.item) {
+      return (
+        <StyledCommand>
+          <div id="command">
+            {showEntities(itembox)}
+          </div>
+        </StyledCommand>
+      )
+    }
+    // スキル表示
+    else if (state == commandState.skill) {
+      return (
+        <StyledCommand>
+          <div id="command">
+            {showEntities(skilltree)}
+          </div>
+        </StyledCommand>
+      )
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Player, Enemy, Item, Skill } from './class';
+import { Player, Enemy, Item, Skill, Equipment } from './class';
 
 // ===================================================
 // データベース連携
@@ -12,6 +12,7 @@ export const e = JSON.parse(enemies.replace(/&quot;/g, '"'));
 export const ea = JSON.parse(enemyAbility.replace(/&quot;/g, '"'));
 export const items = JSON.parse(stritembox.replace(/&quot;/g, '"'));
 export const skills = JSON.parse(strskilltree.replace(/&quot;/g, '"'));
+export const equipments = JSON.parse(strequipmentbox.replace(/&quot;/g, '"'));
 
 // ===================================================
 // インスタンス化
@@ -28,7 +29,11 @@ export let itembox = items.map((i) => new Item(i.name, i.type, i.value, i.amount
 // スキルツリー
 export let skilltree = skills.map((s) => new Skill(s.name, s.type, s.value, s.required, s.detail));
 
+// 装備ボックス
+export let equipmentbox = equipments.map((e) => new Equipment(e.name, e.type, e.attack, e.defence, e.speed, e.intelligence, e.wearing))
+
 console.log(player);
 console.log(enemy);
 console.log(itembox);
 console.log(skilltree);
+console.log(equipmentbox);

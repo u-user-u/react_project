@@ -124,6 +124,21 @@ export class Skill {
   }
 }
 
+// ==================================
+// 装備クラス
+// ==================================
+export class Equipment {
+  constructor(name, type, attack, defence, speed, intelligence, wearing) {
+    this.name = name;
+    this.type = type;
+    this.attack = attack;
+    this.defence = defence;
+    this.speed = speed;
+    this.intelligence = intelligence;
+    this.wearing = wearing;
+  }
+}
+
 // ダメージ処理
 function countDamage(who, target) {
   // ダメージ計算
