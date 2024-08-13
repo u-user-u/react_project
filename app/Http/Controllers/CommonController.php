@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Enemy\EnemyController;
 use App\Http\Controllers\User\UserController;
 use App\Models\Ability;
+use App\Models\Equipment;
+use App\Models\Equipmentbox;
 use App\Models\User;
 
 class CommonController extends Controller
@@ -18,6 +20,7 @@ class CommonController extends Controller
         $ability = $useCon->fetchAbility($user->id);
         $items = $useCon->fetchItem($user->id);
         $skills = $useCon->fetchSkill($user->id);
+        $equipments = $useCon->fetchEquipment($user->id);
 
         //エネミーコントローラーインスタンス化
         $eneCon = new EnemyController;
@@ -31,7 +34,8 @@ class CommonController extends Controller
             ->with('enemy', $enemy)
             ->with('enemyability', $e_ability)
             ->with('items', $items)
-            ->with('skills', $skills);
+            ->with('skills', $skills)
+            ->with('equipments', $equipments);
     }
 
     public function showTitle()
@@ -58,6 +62,14 @@ class CommonController extends Controller
             $ability = new Ability();
             $ability->user_id = $user->id;
             $ability->save();
+
+            // 初期装備生成
+            for ($i = 1; $i <= 3; $i++) {
+                $equipmentbox = new Equipmentbox();
+                $equipmentbox->user_id = $user->id;
+                $equipmentbox->equipment_id = $i;
+                $equipmentbox->save();
+            }
 
             return $this->fetchData($user);
         }

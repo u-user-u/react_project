@@ -12,11 +12,7 @@ export const commandState = {
   wait: 'WAIT',
   battle: "BATTLE",
   item: "ITEM",
-  skill: "SKILL",
-  search: "SEARCH",
-  equipment: "EQUIPMENT",
-  status: "STATUS",
-  save: "SAVE"
+  skill: "SKILL"
 }
 
 export const actionState = {
@@ -52,7 +48,7 @@ display: block;
 // ===================================================
 // Appコンポーネント
 // ===================================================
-const App = () => {
+export const Battle = () => {
   // コマンドステート
   const [state, setCommand] = useState(commandState.initial);
   // アクションステート
@@ -60,7 +56,7 @@ const App = () => {
   // 順番ステート
   const [turn, setTurn] = useState(turnState.wait);
   // リザルトステート
-  const [result, setResult] = useState(resultState.field);
+  const [result, setResult] = useState(resultState.battle);
   // ホバーステート
   const [entity, setEntity] = useState("none");
   // テキストステート
@@ -80,10 +76,4 @@ const App = () => {
       </div>
     </StyledApp>
   )
-}
-
-if (document.getElementById("app")) {
-  ReactDOM.render(
-    <App />,
-    document.getElementById("app"));
 }

@@ -56,8 +56,72 @@ export const Message = ({ state, setCommand, action, turn, setTurn, result, setR
     }
   }
 
+  // フィールド
+  if (result == resultState.field) {
+    // 初期表示
+    if (state == commandState.initial) {
+      return (
+        <StyledMessage>
+          <div id="message">
+            よどんだ空気で溢れかえっている...
+          </div>
+        </StyledMessage>
+      )
+    }
+    // 探索表示
+    else if (state == commandState.search) {
+      return (
+        <StyledMessage>
+          <div id="message">
+            <StyledM onClick={() => {
+              setResult(resultState.battle);
+              setCommand(commandState.initial);
+            }}>
+              {player.name}は勇気を出して歩き出した...
+            </StyledM>
+          </div>
+        </StyledMessage>
+      )
+    }
+    // アイテム表示
+    else if (state == commandState.item) {
+      return (
+        <StyledMessage>
+          {entityMessage()}
+        </StyledMessage>
+      )
+    }
+    // 装備表示
+    else if (state == commandState.equipment) {
+      return (
+        <StyledMessage>
+          {entityMessage()}
+        </StyledMessage>
+      )
+    }
+    // つよさ表示
+    else if (state == commandState.status) {
+      return (
+        <StyledMessage>
+          <div id="message">
+            {player.name}は自分を見つめ直した
+          </div>
+        </StyledMessage>
+      )
+    }
+    // セーブ表示
+    else if (state == commandState.save) {
+      return (
+        <StyledMessage>
+          <div id="message">
+            セーブしてタイトルに戻りますか？
+          </div>
+        </StyledMessage>
+      )
+    }
+  }
   // 戦闘中
-  if (result == resultState.battle) {
+  else if (result == resultState.battle) {
     // 戦闘初期表示
     if (state == commandState.initial) {
       return (

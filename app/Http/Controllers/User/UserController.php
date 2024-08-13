@@ -10,6 +10,8 @@ use App\Models\Itembox;
 use App\Models\Item;
 use App\Models\Skilltree;
 use App\Models\Skill;
+use App\Models\Equipmentbox;
+use App\Models\Equipment;
 
 class UserController extends Controller
 {
@@ -57,5 +59,19 @@ class UserController extends Controller
         }
 
         return $skills;
+    }
+
+    public function fetchEquipment($id)
+    {
+        $equipmentbox = Equipmentbox::where('user_id', $id)->get();
+        $equipments = [];
+        foreach ($equipmentbox as $e) {
+            // $equipmentをEloquentModelから配列に変換 -> 末尾に"amount" => amountを追加
+            $equipment = Equipment::where('id', $e->equipment_id)->first()->toArray();
+            $equipment['wearing'] = $e->wearing;
+            $equipments[] = $equipment;
+        }
+
+        return $equipments;
     }
 }
