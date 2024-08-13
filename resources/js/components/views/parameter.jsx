@@ -1,6 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
-import { player } from '../../class/instance';
+import { equipmentbox, player } from '../../class/instance';
+import { commandState } from "../App";
 
 const StyledParameter = styled.div`
   display: inline-block;
@@ -20,8 +21,19 @@ const StyledFloor = styled.div`
 
 const StyledPlayer = styled.div`
   margin-left: 20px;
+  margin-right: 0px;
+`
+
+const StyledS = styled.div`
+  margin-left: 20px;
   margin-right: auto;
 `
+
+const StyledStatus = styled.div`
+  display: flex;
+`
+
+
 
 const Floor = () => {
   return (
@@ -40,11 +52,62 @@ const Player = () => {
   )
 }
 
-export const Parameter = ({ turn, setTurn }) => {
+const Equipment = () => {
+  return (
+    <StyledPlayer>
+      頭　：{equipmentbox.map((e) => {
+        if (e.type == "head" && e.wearing == 1) {
+          return e.name;
+        }
+      })
+      }<br></br>
+      体　：{
+        equipmentbox.map((e) => {
+          if (e.type == "body" && e.wearing == 1) {
+            return e.name;
+          }
+        })
+      }<br></br>
+      武器：{
+        equipmentbox.map((e) => {
+          if (e.type == "weapon" && e.wearing == 1) {
+            return e.name;
+          }
+        })
+      }
+    </StyledPlayer>
+  )
+}
+
+const StatusLeft = () => {
+  return (
+    <StyledPlayer>
+      攻撃力 : {player.attack}<br></br>
+      守備力 : {player.defence}<br></br>
+      素早さ : {player.speed}<br></br>
+      魔力　 : {player.intelligence}
+    </StyledPlayer>
+  )
+}
+
+const StatusRight = () => {
+  return (
+    <StyledS>
+      状態　　 : {player.state}<br></br>
+      総経験値 : {player.totalEXP}
+    </StyledS>
+  )
+}
+
+export const Parameter = ({ state }) => {
   return (
     <StyledParameter>
       <Floor />
-      <Player />
+      <StyledStatus>
+        <Player />
+        {state == commandState.equipment || state == commandState.status ? <Equipment /> : ""}
+        {state == commandState.status ? <><StatusLeft /><StatusRight /></> : ""}
+      </StyledStatus>
     </StyledParameter>
   )
 }
