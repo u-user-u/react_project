@@ -34,6 +34,9 @@
 
 <body>
   <div id="title" style="height: 100%;"></div>
+  <script>
+    let message = "{{$message}}";
+  </script>
 </body>
 
 </html>

@@ -13,11 +13,16 @@ use App\Models\Skill;
 
 class UserController extends Controller
 {
-    public function fetchUser($name)
+    public function fetchUser($name, $password)
     {
         $user = User::query()->where('name', $name)->first();
-
-        return $user;
+        if (empty($user)) {
+            return;
+        } else if (password_verify($password, $user->password)) {
+            return $user;
+        } else {
+            return 'fail';
+        }
     }
 
     public function fetchAbility($id)
