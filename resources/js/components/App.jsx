@@ -70,7 +70,7 @@ const App = () => {
   return (
     <StyledApp>
       <div>
-        <Parameter turn={turn} setTurn={setTurn} />
+        <Parameter state={state} />
       </div>
       <div>
         <EnemyView result={result} />

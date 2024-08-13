@@ -92,7 +92,7 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
             }}>つよさ</StyledA><br></br>
             <StyledA onClick={() => {
               setCommand(commandState.save);
-            }}>セーブして終わる</StyledA>
+            }}>セーブ</StyledA>
           </div>
         </StyledCommand>
       )
@@ -210,5 +210,11 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
         </StyledCommand>
       )
     }
+  }
+  // 戦闘終了のタイミング
+  else {
+    return (
+      <StyledCommand />
+    )
   }
 }

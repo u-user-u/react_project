@@ -261,7 +261,10 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
   else if (result == resultState.win) {
     return (
       <StyledMessage>
-        <StyledM onClick={() => { setResult(resultState.getEXP) }}>
+        <StyledM onClick={() => {
+          setResult(resultState.getEXP);
+          setAction(actionState.initial);
+        }}>
           {enemy.name}を倒した!
         </StyledM>
       </StyledMessage>
@@ -272,8 +275,9 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
     return (
       <StyledMessage>
         <StyledM onClick={() => {
-          setResult(resultState.battle);
+          setResult(resultState.field);
           setCommand(commandState.initial);
+          setAction(actionState.initial);
           player.HP = player.maxHP;
           player.MP = player.maxMP;
           player.state = "";
@@ -292,7 +296,7 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
           prev_level = player.updateLevel();
           if (prev_level == player.level) {
             setCommand(commandState.initial);
-            setResult(resultState.battle);
+            setResult(resultState.field);
             player.tmp_floor += 1;
           } else {
             setResult(resultState.levelUp);
@@ -310,7 +314,7 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
       <StyledMessage>
         <StyledM onClick={() => {
           setCommand(commandState.initial);
-          setResult(resultState.battle);
+          setResult(resultState.field);
           player.tmp_floor += 1;
         }}>
           {player.name}のレベルが上がった!<br></br>
