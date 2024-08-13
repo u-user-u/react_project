@@ -45,7 +45,10 @@ export const Title = () => {
         </StyledLink><br></br>
         <StyledLink to="/ranking">
           ランキング
-        </StyledLink>
+        </StyledLink><br></br>
+        <StyledDiv>
+          {message}
+        </StyledDiv>
       </StyledDiv>
     </>
   )

@@ -37,7 +37,7 @@ export const Load = () => {
         名前を入力してください<br></br>
         <StyledInput type="text" name="name"></StyledInput><br></br>
         合言葉を入力してください<br></br>
-        <StyledInput type="text" name="password"></StyledInput><br></br>
+        <StyledInput type="password" name="password"></StyledInput><br></br>
         <StyledButton type="submit">
           けってい
         </StyledButton>
