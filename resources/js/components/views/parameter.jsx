@@ -80,12 +80,21 @@ const Equipment = () => {
 }
 
 const StatusLeft = () => {
+  let eq = { attack: 0, defence: 0, speed: 0, intelligence: 0 };
+  equipmentbox.map((e) => {
+    if (e.wearing == 1) {
+      eq.attack += e.attack;
+      eq.defence += e.defence;
+      eq.speed += e.speed;
+      eq.intelligence += e.intelligence;
+    }
+  })
   return (
     <StyledPlayer>
-      攻撃力 : {player.attack}<br></br>
-      守備力 : {player.defence}<br></br>
-      素早さ : {player.speed}<br></br>
-      魔力　 : {player.intelligence}
+      攻撃力 : {player.attack + eq.attack}<br></br>
+      守備力 : {player.defence + eq.defence}<br></br>
+      素早さ : {player.speed + eq.speed}<br></br>
+      魔力　 : {player.intelligence + eq.intelligence}
     </StyledPlayer>
   )
 }
