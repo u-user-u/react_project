@@ -20,12 +20,12 @@ const StyledFloor = styled.div`
 `
 
 const StyledPlayer = styled.div`
-  margin-left: 20px;
+  margin-left: 100px;
   margin-right: 0px;
 `
 
 const StyledS = styled.div`
-  margin-left: 20px;
+  margin-left: 100px;
   margin-right: auto;
 `
 

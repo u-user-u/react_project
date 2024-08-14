@@ -35,7 +35,7 @@ let prev_level = 0;
 
 export const Message = ({ state, setCommand, action, setAction, turn, setTurn, result, setResult, entity, setEntity, text, setText }) => {
   // アイテム, スキルメッセージ
-  const entityMessage = (entities = null) => {
+  const entityMessage = () => {
     // アイテムのとき
     if (state == commandState.item) {
       if (entity == "none") {
@@ -51,7 +51,7 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
         return <div id="message">{player.name}はスキルを準備している...</div>;
       }
       else if (entity.type == "attack") {
-        return <div id="message">消費MP : {entities.useMP}<br></br>{entities.detail}</div>;
+        return <div id="message">消費MP : {entity.useMP}<br></br>{entity.detail}</div>;
       }
     }
     // 装備のとき
