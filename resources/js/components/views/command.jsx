@@ -2,6 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import { commandState, actionState, turnState, resultState } from "../App";
 import { itembox, skilltree, equipmentbox } from "../../class/instance";
+import { player } from '../../class/instance';
 
 const StyledCommand = styled.div`
   display: inline-block;
@@ -137,12 +138,30 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
     }
     // セーブ表示
     else if (state == commandState.save) {
+      const metaCsrfToken = document.querySelector("meta[name='csrf-token']");
+      const csrfToken = React.useRef(metaCsrfToken.content);
+
+      // セーブ用にプレイヤーオブジェクトを配列に変換(連想配列だと取得後使用できないため)
+      let playerArray = [player.name, player.level, player.state, player.HP, player.maxHP, player.MP, player.maxMP, player.attack, player.defence, player.speed, player.intelligence, player.totalEXP, player.tmp_floor, player.record_floor];
+      // アイテムボックス更新用配列
+      // [name, amount, name, amount, ...]
+      let itemArray = itembox.map((i) => [i.name, i.amount]);
+      // スキルツリー更新用配列
+      // [name, name, ...]
+      let skillArray = skilltree.map((s) => [s.name]);
+      // 装備ボックス更新用配列
+      // [[name, wearing], [name, wearing], ...]
+      let equipmentArray = equipmentbox.map((e) => [e.name, e.wearing]);
       return (
         <StyledCommand>
           <div id="command">
-            <form name="save" action="save" method="GET">
+            <form name="save" action="save" method="POST">
+              <input type="hidden" name="_token" value={csrfToken.current} />
+              <input type="hidden" name="player" value={playerArray} />
+              <input type="hidden" name="items" value={itemArray} />
+              <input type="hidden" name="skills" value={skillArray} />
+              <input type="hidden" name="equipments" value={equipmentArray} />
               <StyledA onClick={() => {
-                // save();
                 document.save.submit();
               }}>
                 はい

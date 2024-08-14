@@ -31,9 +31,12 @@ const StyledButton = styled.button`
 `
 
 export const Load = () => {
+  const metaCsrfToken = document.querySelector("meta[name='csrf-token']");
+  const csrfToken = React.useRef(metaCsrfToken.content);
   return (
     <StyledRegister>
-      <form action="load" method="GET">
+      <form action="load" method="POST">
+        <input type="hidden" name="_token" value={csrfToken.current} />
         名前を入力してください<br></br>
         <StyledInput type="text" name="name"></StyledInput><br></br>
         合言葉を入力してください<br></br>
