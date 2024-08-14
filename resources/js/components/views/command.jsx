@@ -32,6 +32,15 @@ export const StyledA = styled.a`
   }
 `
 
+const StyledBack = styled.a`
+  &::before {
+    content: "▶";
+    opacity: 0;
+  }
+  &:hover::before {
+    opacity: 100;
+`
+
 export const Command = ({ state, setCommand, setAction, setTurn, setEntity, result }) => {
   // アイテムボックス, スキルツリー表示
   // 引数にアイテムボックスorスキルツリーを指定
@@ -45,25 +54,7 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
               onClick={() => {
                 setAction(state);
                 setCommand(commandState.battle);
-                setTurn(turnState.prev);
-              }}
-              onMouseEnter={() => setEntity(e)}>{e.name} {e.amount > 1 ? "×" + e.amount : ""}</StyledA><br></br>
-          </React.Fragment>
-        )
-      }
-    }
-  });
-
-  const showEntitiesOnField = (entities) => entities.map((e) => {
-    if (e.amount > 0 || e.amount == null) {
-      if (e.wearing == false || e.wearing == null) {
-        // array.map()を使ったとき、一番上の要素にkeyを設定しないとwarningが出る
-        return (
-          <React.Fragment key={e.name}>
-            <StyledA
-              onClick={() => {
-                setAction(state);
-                setCommand(commandState.battle);
+                result == resultState.battle ? setTurn(turnState.prev) : null;
               }}
               onMouseEnter={() => setEntity(e)}>{e.name} {e.amount > 1 ? "×" + e.amount : ""}</StyledA><br></br>
           </React.Fragment>
@@ -97,27 +88,23 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
         </StyledCommand>
       )
     }
-    // 探索表示
-    else if (state == commandState.search) {
+    // 探索表示, 非表示
+    else if (state == commandState.search || state == commandState.battle) {
       return (
         <StyledCommand />
-      )
-    }
-    // 非表示
-    else if (state == commandState.battle) {
-      return (
-        <StyledCommand>
-          <div id="command"></div>
-        </StyledCommand>
       )
     }
     // アイテム表示
     else if (state == commandState.item) {
       return (
         <StyledCommand>
-          <div id="command">
-            {showEntitiesOnField(itembox)}
-          </div>
+          {showEntities(itembox)}
+          <StyledBack onClick={() => {
+            setCommand(commandState.initial);
+            setEntity("none");
+          }}>
+            もどる
+          </StyledBack>
         </StyledCommand>
       )
     }
@@ -125,16 +112,27 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
     else if (state == commandState.equipment) {
       return (
         <StyledCommand>
-          <div id="command">
-            {showEntitiesOnField(equipmentbox)}
-          </div>
+          {showEntities(equipmentbox)}
+          <StyledBack onClick={() => {
+            setCommand(commandState.initial);
+            setEntity("none");
+          }}>
+            もどる
+          </StyledBack>
         </StyledCommand>
       )
     }
     // つよさ表示
     else if (state == commandState.status) {
       return (
-        <StyledCommand></StyledCommand>
+        <StyledCommand>
+          <StyledBack onClick={() => {
+            setCommand(commandState.initial);
+            setEntity("none");
+          }}>
+            もどる
+          </StyledBack>
+        </StyledCommand>
       )
     }
     // セーブ表示
@@ -184,19 +182,20 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
     // 攻撃
     else if (state == commandState.battle) {
       return (
-        <StyledCommand>
-          <div id="command">
-          </div>
-        </StyledCommand>
+        <StyledCommand />
       )
     }
     // アイテム表示
     else if (state == commandState.item) {
       return (
         <StyledCommand>
-          <div id="command">
-            {showEntities(itembox)}
-          </div>
+          {showEntities(itembox)}
+          <StyledBack onClick={() => {
+            setCommand(commandState.initial);
+            setEntity("none");
+          }}>
+            もどる
+          </StyledBack>
         </StyledCommand>
       )
     }
@@ -204,9 +203,13 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
     else if (state == commandState.skill) {
       return (
         <StyledCommand>
-          <div id="command">
-            {showEntities(skilltree)}
-          </div>
+          {showEntities(skilltree)}
+          <StyledBack onClick={() => {
+            setCommand(commandState.initial);
+            setEntity("none");
+          }}>
+            もどる
+          </StyledBack>
         </StyledCommand>
       )
     }
