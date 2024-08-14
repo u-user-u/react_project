@@ -6,7 +6,6 @@ export function sortCharacter(chara1, chara2) {
   character.sort((a, b) => b.speed - a.speed);
   return character;
 }
-console.log(sortCharacter());
 
 // 勝敗決定
 export function judgeWinLose() {
