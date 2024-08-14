@@ -1,6 +1,6 @@
 import { actionState } from "../components/App";
 import * as lib from '../lib/lib';
-import { allSkill, skills, skilltree } from "./instance";
+import { allEquipment, allSkill, allItem, equipmentbox, itembox, skills, skilltree } from "./instance";
 
 // ==================================
 // プレイヤークラス
@@ -88,6 +88,41 @@ export class Player {
       }
     })
     return returnskill;
+  }
+
+  // アイテム取得
+  // 取得したアイテム名を返す
+  getItem() {
+    const i = Math.ceil(Math.random() * allItem.length);
+    let add = 0;
+    itembox.map((j) => {
+      if (j.name == allItem[i].name) {
+        add = 1;
+        j.amount += 1;
+      }
+    });
+    if (add == 0) {
+      itembox.push(allItem[i]);
+    }
+    return allItem[i].name;
+  }
+
+  // 装備取得
+  // ブール型と取得した装備名の配列を返す
+  getEquipment() {
+    const e = Math.floor(Math.random() * allEquipment.length);
+    let returne = "";
+    equipmentbox.map((f) => {
+      if (f.name == allEquipment[e].name) {
+        returne = allEquipment[e];
+      }
+    });
+    if (returne == "") {
+      equipmentbox.push(allEquipment[e]);
+      return allEquipment[e];
+    } else {
+      return returne;
+    }
   }
 }
 

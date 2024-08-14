@@ -24,9 +24,11 @@ class CommonController extends Controller
         // ユーザー情報フェッチ処理（ユーザー以外）
         $ability = $useCon->fetchAbility($user->id);
         $items = $useCon->fetchItem($user->id);
+        $allItem = Item::get();
         $skills = $useCon->fetchSkill($user->id);
         $allSkill = Skill::get();
         $equipments = $useCon->fetchEquipment($user->id);
+        $allEquipment = Equipment::get();
 
         //エネミーコントローラーインスタンス化
         $eneCon = new EnemyController;
@@ -40,9 +42,11 @@ class CommonController extends Controller
             ->with('enemy', $enemy)
             ->with('enemyability', $e_ability)
             ->with('items', $items)
+            ->with('allItem', $allItem)
             ->with('skills', $skills)
             ->with('allSkill', $allSkill)
-            ->with('equipments', $equipments);
+            ->with('equipments', $equipments)
+            ->with('allEquipment', $allEquipment);
     }
 
     // タイトル表示

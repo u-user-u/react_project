@@ -33,6 +33,8 @@ const StyledM = styled.a`
 
 let prev_level = 0;
 let gotskill = [];
+let gotitem = "";
+let gotequipment = "";
 
 export const Message = ({ state, setCommand, action, setAction, turn, setTurn, result, setResult, entity, setEntity, text, setText }) => {
   // アイテム, スキルメッセージ
@@ -309,10 +311,19 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
         <StyledM onClick={() => {
           prev_level = player.updateLevel();
           if (prev_level == player.level) {
-            setCommand(commandState.initial);
-            setResult(resultState.field);
-            player.tmp_floor += 1;
-            player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
+            const r = Math.ceil(Math.random() * 100);
+            if (r < 20) {
+              gotitem = player.getItem();
+              setResult(resultState.getItem);
+            } else if (r < 30) {
+              gotequipment = player.getEquipment();
+              setResult(resultState.getEquipment);
+            } else {
+              setCommand(commandState.initial);
+              setResult(resultState.field);
+              player.tmp_floor += 1;
+              player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
+            }
           } else {
             setResult(resultState.levelUp);
           }
@@ -331,10 +342,19 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
           gotskill = player.getSkill();
           console.log(gotskill);
           if (gotskill.length == 0) {
-            setCommand(commandState.initial);
-            setResult(resultState.field);
-            player.tmp_floor += 1;
-            player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
+            const r = Math.ceil(Math.random() * 100);
+            if (r < 20) {
+              gotitem = player.getItem();
+              setResult(resultState.getItem);
+            } else if (r < 30) {
+              gotequipment = player.getEquipment();
+              setResult(resultState.getEquipment);
+            } else {
+              setCommand(commandState.initial);
+              setResult(resultState.field);
+              player.tmp_floor += 1;
+              player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
+            }
           } else {
             setResult(resultState.getSkill);
           }
@@ -351,11 +371,19 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
     return (
       <StyledMessage>
         <StyledM onClick={() => {
-          setCommand(commandState.initial);
-          setResult(resultState.field);
-          gotskill = [];
-          player.tmp_floor += 1;
-          player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
+          const r = Math.ceil(Math.random() * 100);
+          if (r < 20) {
+            gotitem = player.getItem();
+            setResult(resultState.getItem);
+          } else if (r < 30) {
+            gotequipment = player.getEquipment();
+            setResult(resultState.getEquipment);
+          } else {
+            setCommand(commandState.initial);
+            setResult(resultState.field);
+            player.tmp_floor += 1;
+            player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
+          }
         }}>
           {gotskill.map((s) => {
             return (
@@ -364,6 +392,40 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
               </React.Fragment>
             );
           })}
+        </StyledM>
+      </StyledMessage>
+    )
+  }
+  // リザルトアイテム取得
+  else if (result == resultState.getItem) {
+    return (
+      <StyledMessage>
+        <StyledM onClick={() => {
+          setCommand(commandState.initial);
+          setResult(resultState.field);
+          gotitem = "";
+          player.tmp_floor += 1;
+          player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
+        }}>
+          {enemy.name}は宝箱を落とした<br></br>
+          {gotitem} を手に入れた!
+        </StyledM>
+      </StyledMessage>
+    )
+  }
+  // リザルト装備取得
+  else if (result == resultState.getEquipment) {
+    return (
+      <StyledMessage>
+        <StyledM onClick={() => {
+          setCommand(commandState.initial);
+          setResult(resultState.field);
+          gotequipment = [];
+          player.tmp_floor += 1;
+          player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
+        }}>
+          {enemy.name}は宝箱を落とした<br></br>
+          {gotequipment.name}を手に入れた!<br></br>
         </StyledM>
       </StyledMessage>
     )
