@@ -35,7 +35,7 @@
 <body>
   <div id="title" style="height: 100%;"></div>
   <script>
-    let message = "{{$message}}";
+    let message = "{{old('message')}}";
   </script>
 </body>
 
