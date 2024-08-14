@@ -1,5 +1,6 @@
 import { actionState } from "../components/App";
 import * as lib from '../lib/lib';
+import { allSkill, skills, skilltree } from "./instance";
 
 // ==================================
 // プレイヤークラス
@@ -44,7 +45,6 @@ export class Player {
     const tmp_level = this.level;
     // nextLevel^2 < totalEXP のとき、レベルアップし続ける
     for (this.level; (this.level + 1) * (this.level + 1) <= this.totalEXP; this.level++) {
-      console.log(this.level);
     }
     console.log("レベルが" + this.level + "になった");
     return tmp_level;
@@ -71,9 +71,23 @@ export class Player {
     this.HP = this.maxHP;
     this.MP = this.maxMP;
 
-    console.log(this);
-
     return "HP +" + upParam[0] + ", MP +" + upParam[1] + ", 攻撃力 +" + upParam[2] + ", 守備力 +" + upParam[3] + ", 素早さ +" + upParam[4] + ", 魔力 +" + upParam[5];
+  }
+
+
+  // スキル取得
+  // 取得したスキルを返す
+  getSkill() {
+    // return用配列を用意
+    let returnskill = [];
+    // オールスキルデータからレート判定と要素検索を行い、条件を満たせば追加
+    allSkill.map((s) => {
+      if (this.level >= s.rate && !skilltree.includes(s)) {
+        skilltree.push(s);
+        returnskill.push(s.name);
+      }
+    })
+    return returnskill;
   }
 }
 
@@ -115,12 +129,13 @@ export class Item {
 // スキルクラス
 // ==================================
 export class Skill {
-  constructor(name, type, value, useMP, detail) {
+  constructor(name, type, value, useMP, detail, rate) {
     this.name = name;
     this.type = type;
     this.value = value;
     this.useMP = useMP;
     this.detail = detail;
+    this.rate = rate;
   }
 }
 
@@ -172,7 +187,7 @@ function useItem(who, enemy, item) {
 
 function useSkill(who, enemy, skill) {
   const damage = who.intelligence * skill.value;
-  const useMP = 5;
+  const useMP = skill.useMP;
   // MPが足りない場合
   if (who.MP < useMP) {
     return who.name + "はファイアを放った!\nしかしMPが足りなかった!";

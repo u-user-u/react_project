@@ -13,7 +13,6 @@ use App\Models\Itembox;
 use App\Models\Skill;
 use App\Models\Skilltree;
 use App\Models\User;
-use Illuminate\Foundation\Auth\User as AuthUser;
 
 class CommonController extends Controller
 {
@@ -26,6 +25,7 @@ class CommonController extends Controller
         $ability = $useCon->fetchAbility($user->id);
         $items = $useCon->fetchItem($user->id);
         $skills = $useCon->fetchSkill($user->id);
+        $allSkill = Skill::get();
         $equipments = $useCon->fetchEquipment($user->id);
 
         //エネミーコントローラーインスタンス化
@@ -41,6 +41,7 @@ class CommonController extends Controller
             ->with('enemyability', $e_ability)
             ->with('items', $items)
             ->with('skills', $skills)
+            ->with('allSkill', $allSkill)
             ->with('equipments', $equipments);
     }
 

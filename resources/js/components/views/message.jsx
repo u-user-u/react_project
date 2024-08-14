@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import { commandState, actionState, turnState, resultState } from '../App';
-import { player, enemy, equipmentbox } from "../../class/instance";
+import { player, enemy, equipmentbox, allSkill, skilltree } from "../../class/instance";
 import { Player } from "../../class/class";
 import * as lib from "../../lib/lib";
 
@@ -32,6 +32,7 @@ const StyledM = styled.a`
 `
 
 let prev_level = 0;
+let gotskill = [];
 
 export const Message = ({ state, setCommand, action, setAction, turn, setTurn, result, setResult, entity, setEntity, text, setText }) => {
   // アイテム, スキルメッセージ
@@ -61,17 +62,30 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
       }
       else {
         let a = "";
+        switch (entity.type) {
+          case 'weapon':
+            a = "武器, ";
+            break;
+          case 'head':
+            a = "頭, ";
+            break;
+          case 'body':
+            a = "体, ";
+            break;
+          default:
+            a = "";
+        }
         if (entity.attack > 0) {
-          a += "攻撃力+" + entity.attack;
+          a += " 攻撃力+" + entity.attack;
         }
         if (entity.defence > 0) {
-          a += ", 守備力+" + entity.defence;
+          a += " 守備力+" + entity.defence;
         }
         if (entity.speed > 0) {
-          a += ", 素早さ+" + entity.speed;
+          a += " 素早さ+" + entity.speed;
         }
         if (entity.intelligence > 0) {
-          a += ", 魔力" + entity.intelligence;
+          a += " 魔力" + entity.intelligence;
         }
         return a;
       }
@@ -298,6 +312,7 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
             setCommand(commandState.initial);
             setResult(resultState.field);
             player.tmp_floor += 1;
+            player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
           } else {
             setResult(resultState.levelUp);
           }
@@ -313,9 +328,16 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
     return (
       <StyledMessage>
         <StyledM onClick={() => {
-          setCommand(commandState.initial);
-          setResult(resultState.field);
-          player.tmp_floor += 1;
+          gotskill = player.getSkill();
+          console.log(gotskill);
+          if (gotskill.length == 0) {
+            setCommand(commandState.initial);
+            setResult(resultState.field);
+            player.tmp_floor += 1;
+            player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
+          } else {
+            setResult(resultState.getSkill);
+          }
         }}>
           {player.name}のレベルが上がった!<br></br>
           Lv. {prev_level} → {player.level}<br></br>
@@ -323,5 +345,27 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
         </StyledM>
       </StyledMessage>
     );
+  }
+  // リザルトスキル取得
+  else if (result == resultState.getSkill) {
+    return (
+      <StyledMessage>
+        <StyledM onClick={() => {
+          setCommand(commandState.initial);
+          setResult(resultState.field);
+          gotskill = [];
+          player.tmp_floor += 1;
+          player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
+        }}>
+          {gotskill.map((s) => {
+            return (
+              <React.Fragment key={s}>
+                スキル : {s} を覚えた!<br></br>
+              </React.Fragment>
+            );
+          })}
+        </StyledM>
+      </StyledMessage>
+    )
   }
 }
