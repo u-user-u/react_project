@@ -14,6 +14,8 @@ export const items = JSON.parse(stritembox.replace(/&quot;/g, '"'));
 export const skills = JSON.parse(strskilltree.replace(/&quot;/g, '"'));
 export const equipments = JSON.parse(strequipmentbox.replace(/&quot;/g, '"'));
 export const allskill = JSON.parse(strallskill.replace(/&quot;/g, '"'));
+export const allitem = JSON.parse(strallitem.replace(/&quot;/g, '"'));
+export const allequipment = JSON.parse(strallequipment.replace(/&quot;/g, '"'));
 
 // ===================================================
 // インスタンス化
@@ -31,14 +33,16 @@ export let itembox = items.map((i) => new Item(i.name, i.type, i.value, i.amount
 export let skilltree = skills.map((s) => new Skill(s.name, s.type, s.value, s.required, s.detail, s.rate));
 
 // すべてのスキルデータ
-export let allSkill = allskill.map((s) => {
-  let skilldata = new Skill(s.name, s.type, s.value, s.required, s.detail, s.rate);
-  return skilldata;
-})
-console.log("オールスキル", allSkill);
+export let allSkill = allskill.map((s) => new Skill(s.name, s.type, s.value, s.required, s.detail, s.rate));
+
+// すべてのアイテムデータ
+export let allItem = allitem.map((i) => new Item(i.name, i.type, i.value, 1));
+
+// すべての装備データ
+export let allEquipment = allequipment.map((e) => new Equipment(e.name, e.type, e.attack, e.defence, e.speed, e.intelligence, 0));
 
 // 装備ボックス
-export let equipmentbox = equipments.map((e) => new Equipment(e.name, e.type, e.attack, e.defence, e.speed, e.intelligence, e.wearing))
+export let equipmentbox = equipments.map((e) => new Equipment(e.name, e.type, e.attack, e.defence, e.speed, e.intelligence, e.wearing));
 
 console.log(player);
 console.log(enemy);

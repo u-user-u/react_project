@@ -42,7 +42,7 @@ const StyledBack = styled.a`
     opacity: 100;
 `
 
-export const Command = ({ state, setCommand, setAction, setTurn, setEntity, result }) => {
+export const Command = ({ state, setCommand, setAction, setTurn, setEntity, result, setResult }) => {
   // アイテムボックス, スキルツリー表示
   // 引数にアイテムボックスorスキルツリーを指定
   const showEntities = (entities) => entities.map((e) => {

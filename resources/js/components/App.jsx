@@ -76,7 +76,7 @@ const App = () => {
         <EnemyView result={result} />
       </div>
       <div>
-        <Command state={state} setCommand={setCommand} setAction={setAction} setTurn={setTurn} setEntity={setEntity} result={result} />
+        <Command state={state} setCommand={setCommand} setAction={setAction} setTurn={setTurn} setEntity={setEntity} result={result} setResult={setResult} />
         <Message state={state} setCommand={setCommand} action={action} setAction={setAction} turn={turn} setTurn={setTurn} result={result} setResult={setResult} entity={entity} setEntity={setEntity} text={text} setText={setText} />
       </div>
     </StyledApp>
