@@ -140,6 +140,9 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
     else if (state == commandState.save) {
       const metaCsrfToken = document.querySelector("meta[name='csrf-token']");
       const csrfToken = React.useRef(metaCsrfToken.content);
+      if (player.tmp_floor > player.record_floor) {
+        player.record_floor = player.tmp_floor;
+      }
 
       // セーブ用にプレイヤーオブジェクトを配列に変換(連想配列だと取得後使用できないため)
       let playerArray = [player.name, player.level, player.state, player.HP, player.maxHP, player.MP, player.maxMP, player.attack, player.defence, player.speed, player.intelligence, player.totalEXP, player.tmp_floor, player.record_floor];

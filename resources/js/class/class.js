@@ -93,7 +93,7 @@ export class Player {
   // アイテム取得
   // 取得したアイテム名を返す
   getItem() {
-    const i = Math.ceil(Math.random() * allItem.length);
+    const i = Math.floor(Math.random() * allItem.length);
     let add = 0;
     itembox.map((j) => {
       if (j.name == allItem[i].name) {

@@ -68,6 +68,8 @@ class CommonController extends Controller
             $user = new User();
             $user->name = $request->input('name');
             $user->password = $request->input('password');
+            $user->tmp_floor = 1;
+            $user->record_floor = 1;
             $user->save();
 
             // ユーザー能力生成
@@ -157,12 +159,15 @@ class CommonController extends Controller
         // skilltreesテーブル
         for ($i = 0; $i < count($skills); $i++) {
             $skill = Skill::where('name', $skills[$i])->first();
-            $skilldata = Skilltree::where('user_id', $user->id)->where('skill_id', $skill->id)->first();
-            if (empty($skilldata)) {
-                $skilldata = new Skilltree();
-                $skilldata->user_id = $user->id;
-                $skilldata->skill_id = $skill->id;
-                $skilldata->save();
+            if (empty($skill)) {
+            } else {
+                $skilldata = Skilltree::where('user_id', $user->id)->where('skill_id', $skill->id)->first();
+                if (empty($skilldata)) {
+                    $skilldata = new Skilltree();
+                    $skilldata->user_id = $user->id;
+                    $skilldata->skill_id = $skill->id;
+                    $skilldata->save();
+                }
             }
         };
 
