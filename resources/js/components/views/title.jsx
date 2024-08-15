@@ -29,6 +29,21 @@ export const StyledLink = styled(Link)`
   }
 `
 
+const StyledRanking = styled(Link)`
+  position: relative;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  right: 10px;
+  &::before {
+    content: "▶";
+    opacity: 0;
+  }
+  &:hover::before {
+    opacity: 100;
+  }
+`
+
 export const Title = () => {
   return (
     <>
@@ -42,10 +57,10 @@ export const Title = () => {
         </StyledLink><br></br>
         <StyledLink to="/load">
           つづきから
-        </StyledLink><br></br>
-        <StyledLink to="/ranking">
+        </StyledLink><br></br><br></br>
+        <StyledRanking to="/ranking">
           ランキング
-        </StyledLink><br></br>
+        </StyledRanking><br></br>
         <StyledDiv>
           {message}
         </StyledDiv>
