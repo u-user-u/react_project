@@ -48,4 +48,5 @@ console.log(player);
 console.log(enemy);
 console.log(itembox);
 console.log(skilltree);
+console.log(allSkill);
 console.log(equipmentbox);

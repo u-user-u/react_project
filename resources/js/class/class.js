@@ -108,7 +108,7 @@ export class Player {
   }
 
   // 装備取得
-  // ブール型と取得した装備名の配列を返す
+  // 取得した装備のオブジェクトを返す
   getEquipment() {
     const e = Math.floor(Math.random() * allEquipment.length);
     let returne = "";
@@ -145,6 +145,16 @@ export class Enemy {
 
   action(action, enemy, entity = "none") {
     return countDamage(this, enemy);
+  }
+
+  initializeEnemy(player) {
+    this.level = player.tmp_floor
+    this.HP = 30 * this.level;
+    this.attack = 10 * this.level;
+    this.defence = 10 * this.level;
+    this.speed = 10 * this.level;
+    this.intelligence = 10 * this.level;
+    this.EXP = 10 * this.level;
   }
 }
 

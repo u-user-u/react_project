@@ -62,7 +62,7 @@ class CommonController extends Controller
         $auth = $useCon->fetchUser($request->input('name'), $request->input('password'));
         if (!empty($auth)) {
             return redirect()->back()
-                ->with('message', 'そのユーザー名は既に使われています');
+                ->with('message', "そのユーザー名は既に使われています");
         } else {
             // ユーザー登録
             $user = new User();
