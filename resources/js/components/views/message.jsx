@@ -50,13 +50,16 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
       else if (entity.type == "heal") {
         return <div id="message">HPが{entity.value}回復する</div>;
       }
+      else if (entity.type == "healMP") {
+        return <div id="message">MPが{entity.value}回復する</div>;
+      }
     }
     // スキルのとき
     else if (state == commandState.skill) {
       if (entity == "none") {
         return <div id="message">{player.name}はスキルを準備している...</div>;
       }
-      else if (entity.type == "attack") {
+      else {
         return <div id="message">消費MP : {entity.useMP}<br></br>{entity.detail}</div>;
       }
     }

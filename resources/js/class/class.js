@@ -43,8 +43,8 @@ export class Player {
   // 変化前のレベルを返す
   updateLevel() {
     const tmp_level = this.level;
-    // nextLevel^2 < totalEXP のとき、レベルアップし続ける
-    for (this.level; (this.level + 1) * (this.level + 1) <= this.totalEXP; this.level++) {
+    // 2 * nextLevel^2 < totalEXP のとき、レベルアップし続ける
+    for (this.level; 2 * (this.level + 1) * (this.level + 1) <= this.totalEXP; this.level++) {
     }
     console.log("レベルが" + this.level + "になった");
     return tmp_level;
@@ -158,11 +158,11 @@ export class Enemy {
   initializeEnemy(player) {
     this.level = player.tmp_floor
     this.HP = 30 * this.level;
-    this.attack = 10 * this.level;
-    this.defence = 10 * this.level;
+    this.attack = 5 * this.level;
+    this.defence = 5 * this.level;
     this.speed = 10 * this.level;
     this.intelligence = 10 * this.level;
-    this.EXP = 10 * this.level;
+    this.EXP = 2 * this.level;
   }
 }
 
@@ -232,9 +232,16 @@ function useItem(who, enemy, item) {
     who.HP += item.value;
     if (who.maxHP <= who.HP) {
       who.HP = who.maxHP;
-      return who.name + "は薬草を使った!\nHPが全快した!";
+      return who.name + "は" + item.name + "を使った!\nHPが全快した!";
     }
-    return who.name + "は薬草を使った!\nHPが" + item.value + "回復した!";
+    return who.name + "は" + item.name + "を使った!\nHPが" + item.value + "回復した!";
+  } else if (item.type == "healMP") {
+    who.MP += item.value;
+    if (who.maxMP <= who.MP) {
+      who.MP = who.maxMP;
+      return who.name + "は" + item.name + "を使った!\nMPが全快した!";
+    }
+    return who.name + "は" + item.name + "を使った!\nMPが" + item.value + "回復した!";
   }
 }
 
@@ -243,15 +250,24 @@ function useSkill(who, enemy, skill) {
   const useMP = skill.useMP;
   // MPが足りない場合
   if (who.MP < useMP) {
-    return who.name + "はファイアを放った!\nしかしMPが足りなかった!";
+    return who.name + "は" + skill.name + "を放った!\nしかしMPが足りなかった!";
   }
   // 通常発動
   else {
-    // ダメージ,MP処理後、メッセージ表示
-    damage > enemy.HP ? enemy.HP = 0 : enemy.HP -= damage;
-    who.MP -= useMP;
-    // デバッグ用ログ表示
-    console.log("スキル発動\n" + enemy.name + "\nHP:" + enemy.HP);
-    return who.name + "は" + skill.name + "を放った!\n" + enemy.name + "に" + damage + "のダメージ!";
+    if (skill.type == "attack") {
+      // ダメージ,MP処理後、メッセージ表示
+      damage > enemy.HP ? enemy.HP = 0 : enemy.HP -= damage;
+      who.MP -= useMP;
+      // デバッグ用ログ表示
+      console.log("スキル発動\n" + enemy.name + "\nHP:" + enemy.HP);
+      return who.name + "は" + skill.name + "を放った!\n" + enemy.name + "に" + damage + "のダメージ!";
+    } else if (skill.type == "heal") {
+      // ダメージ,MP処理後、メッセージ表示
+      damage + who.HP > who.maxHP ? who.HP = who.maxHP : who.HP += damage;
+      who.MP -= useMP;
+      // デバッグ用ログ表示
+      console.log("スキル発動\n" + who.name + "\nHP:" + who.HP);
+      return who.name + "は" + skill.name + "を放った!\n" + "HPが" + damage + "回復した!";
+    }
   }
 }
