@@ -43,8 +43,8 @@ export class Player {
   // 変化前のレベルを返す
   updateLevel() {
     const tmp_level = this.level;
-    // nextLevel^2 < totalEXP のとき、レベルアップし続ける
-    for (this.level; (this.level + 1) * (this.level + 1) <= this.totalEXP; this.level++) {
+    // 2 * nextLevel^2 < totalEXP のとき、レベルアップし続ける
+    for (this.level; 2 * (this.level + 1) * (this.level + 1) <= this.totalEXP; this.level++) {
     }
     console.log("レベルが" + this.level + "になった");
     return tmp_level;
@@ -162,7 +162,7 @@ export class Enemy {
     this.defence = 10 * this.level;
     this.speed = 10 * this.level;
     this.intelligence = 10 * this.level;
-    this.EXP = 10 * this.level;
+    this.EXP = 2 * this.level;
   }
 }
 
@@ -232,9 +232,9 @@ function useItem(who, enemy, item) {
     who.HP += item.value;
     if (who.maxHP <= who.HP) {
       who.HP = who.maxHP;
-      return who.name + "は薬草を使った!\nHPが全快した!";
+      return who.name + "は" + item.name + "を使った!\nHPが全快した!";
     }
-    return who.name + "は薬草を使った!\nHPが" + item.value + "回復した!";
+    return who.name + "は" + item.name + "を使った!\nHPが" + item.value + "回復した!";
   }
 }
 
@@ -243,7 +243,7 @@ function useSkill(who, enemy, skill) {
   const useMP = skill.useMP;
   // MPが足りない場合
   if (who.MP < useMP) {
-    return who.name + "はファイアを放った!\nしかしMPが足りなかった!";
+    return who.name + "は" + skill.name + "を放った!\nしかしMPが足りなかった!";
   }
   // 通常発動
   else {
