@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom';
 
 const StyledRegister = styled.div`
-  displey: inline-block;
+  position: relative;
   font-size: 16px;
-  margin: 5%;
+  top: 40%;
 `
 
 const StyledInput = styled.input`
@@ -38,9 +38,9 @@ export const Register = () => {
     <StyledRegister>
       <form action="register" method="GET">
         名前を入力してください<br></br>
-        <StyledInput type="text" name="name"></StyledInput><br></br>
+        <StyledInput type="text" name="name"></StyledInput><br></br><br></br>
         合言葉を入力してください<br></br>
-        <StyledInput type="password" name="password"></StyledInput><br></br>
+        <StyledInput type="password" name="password"></StyledInput><br></br><br></br>
         <StyledButton type="submit">
           けってい
         </StyledButton>
