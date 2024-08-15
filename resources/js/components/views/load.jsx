@@ -38,9 +38,9 @@ export const Load = () => {
       <form action="load" method="POST">
         <input type="hidden" name="_token" value={csrfToken.current} />
         名前を入力してください<br></br>
-        <StyledInput type="text" name="name"></StyledInput><br></br><br></br>
+        <StyledInput type="text" name="name" required></StyledInput><br></br><br></br>
         合言葉を入力してください<br></br>
-        <StyledInput type="password" name="password"></StyledInput><br></br><br></br>
+        <StyledInput type="password" name="password" required></StyledInput><br></br><br></br>
         <StyledButton type="submit">
           けってい
         </StyledButton>

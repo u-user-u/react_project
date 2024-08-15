@@ -34,7 +34,10 @@ const StyledM = styled.a`
 let prev_level = 0;
 let gotskill = [];
 let gotitem = "";
-let gotequipment = "";
+export let gotequipment = [];
+export const initializeGotequipment = () => {
+  gotequipment = [];
+}
 
 export const Message = ({ state, setCommand, action, setAction, turn, setTurn, result, setResult, entity, setEntity, text, setText }) => {
   // アイテム, スキルメッセージ
@@ -322,7 +325,6 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
               setCommand(commandState.initial);
               setResult(resultState.field);
               player.tmp_floor += 1;
-              player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
             }
           } else {
             setResult(resultState.levelUp);
@@ -353,7 +355,6 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
               setCommand(commandState.initial);
               setResult(resultState.field);
               player.tmp_floor += 1;
-              player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
             }
           } else {
             setResult(resultState.getSkill);
@@ -375,14 +376,13 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
           if (r < 20) {
             gotitem = player.getItem();
             setResult(resultState.getItem);
-          } else if (r < 30) {
+          } else if (r < 100) {
             gotequipment = player.getEquipment();
             setResult(resultState.getEquipment);
           } else {
             setCommand(commandState.initial);
             setResult(resultState.field);
             player.tmp_floor += 1;
-            player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
           }
         }}>
           {gotskill.map((s) => {
@@ -405,7 +405,6 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
           setResult(resultState.field);
           gotitem = "";
           player.tmp_floor += 1;
-          player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
         }}>
           {enemy.name}は宝箱を落とした<br></br>
           {gotitem} を手に入れた!
@@ -417,16 +416,11 @@ export const Message = ({ state, setCommand, action, setAction, turn, setTurn, r
   else if (result == resultState.getEquipment) {
     return (
       <StyledMessage>
-        <StyledM onClick={() => {
-          setCommand(commandState.initial);
-          setResult(resultState.field);
-          gotequipment = [];
-          player.tmp_floor += 1;
-          player.record_floor > player.tmp_floor ? player.record_floor = player.tmp_floor : true;
-        }}>
+        <div>
           {enemy.name}は宝箱を落とした<br></br>
           {gotequipment.name}を手に入れた!<br></br>
-        </StyledM>
+          装備しますか？
+        </div>
       </StyledMessage>
     )
   }

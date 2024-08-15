@@ -7,7 +7,7 @@ const StyledTitle = styled.div`
   display: inline-block;
   font-size: 36px;
   color: white;
-  margin-top: 15%;
+  margin-top: 25%;
 `
 
 const StyledDiv = styled.div`

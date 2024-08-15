@@ -2,7 +2,8 @@ import React from "react";
 import styled from 'styled-components';
 import { commandState, actionState, turnState, resultState } from "../App";
 import { itembox, skilltree, equipmentbox } from "../../class/instance";
-import { player } from '../../class/instance';
+import { player, enemy } from '../../class/instance';
+import { gotequipment, initializeGotequipment } from "./message";
 
 const StyledCommand = styled.div`
   display: inline-block;
@@ -43,7 +44,7 @@ const StyledBack = styled.a`
 `
 
 export const Command = ({ state, setCommand, setAction, setTurn, setEntity, result, setResult }) => {
-  // アイテムボックス, スキルツリー表示
+  // アイテムボックス, スキルツリー, 装備ボックス表示
   // 引数にアイテムボックスorスキルツリーを指定
   const showEntities = (entities) => entities.map((e) => {
     if (e.amount > 0 || e.amount == null) {
@@ -64,6 +65,20 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
     }
   });
 
+  const changeEquipment = (equipment) => {
+    equipmentbox.map((e) => {
+      if (e.type == equipment.type) {
+        e.wearing = 0;
+      }
+    });
+    equipmentbox.map((e) => {
+      if (e.name == equipment.name) {
+        e.wearing = 1;
+      }
+    });
+    return equipment.name + " を装備した";
+  }
+
   // フィールド画面
   if (result == resultState.field) {
     if (state == commandState.initial) {
@@ -71,6 +86,7 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
         <StyledCommand>
           <div id="command">
             <StyledA onClick={() => {
+              enemy.initializeEnemy(player);
               setCommand(commandState.search);
             }}>探索</StyledA><br></br>
             <StyledA onClick={() => {
@@ -235,6 +251,26 @@ export const Command = ({ state, setCommand, setAction, setTurn, setEntity, resu
         </StyledCommand>
       )
     }
+  }
+  // 装備の是非
+  else if (result == resultState.getEquipment) {
+    return (
+      <StyledCommand>
+        <StyledA onClick={() => {
+          changeEquipment(gotequipment);
+          setCommand(commandState.initial);
+          setResult(resultState.field);
+          initializeGotequipment();
+          player.tmp_floor += 1;
+        }}>はい</StyledA><br></br>
+        <StyledA onClick={() => {
+          setCommand(commandState.initial);
+          setResult(resultState.field);
+          initializeGotequipment();
+          player.tmp_floor += 1;
+        }}>いいえ</StyledA>
+      </StyledCommand>
+    )
   }
   // 戦闘終了のタイミング
   else {
