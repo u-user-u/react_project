@@ -82,9 +82,17 @@ export class Player {
     let returnskill = [];
     // オールスキルデータからレート判定と要素検索を行い、条件を満たせば追加
     allSkill.map((s) => {
-      if (this.level >= s.rate && !skilltree.includes(s)) {
-        skilltree.push(s);
-        returnskill.push(s.name);
+      let add = 1;
+      if (this.level >= s.rate) {
+        skilltree.map((k) => {
+          if (k.name == s.name) {
+            add = 0;
+          }
+        })
+        if (add == 1) {
+          skilltree.push(s);
+          returnskill.push(s.name);
+        }
       }
     })
     return returnskill;
