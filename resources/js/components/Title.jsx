@@ -31,7 +31,7 @@ const TitlePage = () => {
           <Load />
         </Route>
         <Route exact path="/ranking">
-          {/*<Ranking />*/}
+          <div>Coming soon...</div>
         </Route>
         <Redirect to="/title" path="*" />
       </Router>

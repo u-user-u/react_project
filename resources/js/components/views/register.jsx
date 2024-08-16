@@ -33,9 +33,14 @@ const StyledButton = styled.button`
     opacity: 100;
 `
 
+const StyledH1 = styled.div`
+  font-size: 36px;
+`
+
 export const Register = () => {
   return (
     <StyledRegister>
+      <StyledH1>はじめから</StyledH1><br></br>
       <form action="register" method="GET">
         名前を入力してください<br></br>
         <StyledInput type="text" name="name" required></StyledInput><br></br><br></br>
