@@ -29,12 +29,16 @@ const StyledButton = styled.button`
   &:hover::before {
     opacity: 100;
 `
+const StyledH1 = styled.div`
+  font-size: 36px;
+`
 
 export const Load = () => {
   const metaCsrfToken = document.querySelector("meta[name='csrf-token']");
   const csrfToken = React.useRef(metaCsrfToken.content);
   return (
     <StyledRegister>
+      <StyledH1>つづきから</StyledH1><br></br>
       <form action="load" method="POST">
         <input type="hidden" name="_token" value={csrfToken.current} />
         名前を入力してください<br></br>
