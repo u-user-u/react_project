@@ -48,7 +48,7 @@ export const Title = () => {
   return (
     <>
       <StyledTitle>
-        タイトル
+        スライムダンジョン
       </StyledTitle><br></br>
       <StyledDiv>
         冒険を始める<br></br>
